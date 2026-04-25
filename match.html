@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cryologix — Find a reefer</title>
+<meta name="description" content="Post your cold-chain shipment. Match with verified reefer fleets. Temperature guaranteed." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b1220'/%3E%3Ctext x='50' y='68' font-size='62' font-family='Inter,Arial' font-weight='700' text-anchor='middle' fill='%2300d3b0'%3EC%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f7f5;
+    --bg-2: #ffffff;
+    --ink: #0b1220;
+    --ink-2: #1a2238;
+    --ink-dim: #5b6477;
+    --ink-mute: #8b93a4;
+    --line: #e7e8ec;
+    --line-2: #eef0f3;
+    --accent: #00b894;
+    --accent-2: #0a84ff;
+    --accent-soft: #e8f7f3;
+    --chip: #f1f2f5;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+  a { color: inherit; text-decoration: none; }
+  .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(600px 400px at 85% -5%, rgba(10, 132, 255, 0.08), transparent 60%),
+      radial-gradient(500px 350px at -5% 30%, rgba(0, 184, 148, 0.07), transparent 60%);
+    pointer-events: none;
+  }
+
+  .container { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
+
+  /* ── Nav (mirrors index.html) ─────────────────── */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 0;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 700; letter-spacing: -0.01em; font-size: 19px;
+  }
+  .mark {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: var(--ink);
+    display: grid; place-items: center;
+    color: var(--accent);
+    font-weight: 800; font-size: 16px;
+  }
+  .nav-links {
+    display: flex; gap: 32px; font-size: 14px; color: var(--ink-dim);
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    font-size: 14px; font-weight: 500;
+    padding: 9px 16px; border-radius: 999px;
+    background: var(--ink); color: #fff;
+    transition: transform .12s ease, background .2s;
+  }
+  .nav-cta:hover { background: #000; transform: translateY(-1px); }
+  @media (max-width: 720px) { .nav-links { display: none; } }
+
+  /* ── Eyebrow + headings ─────────────────── */
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.12em;
+    color: var(--ink-dim); text-transform: uppercase;
+    padding: 6px 12px; border-radius: 999px;
+    background: #fff; border: 1px solid var(--line);
+    margin-bottom: 18px;
+  }
+  .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 rgba(0, 184, 148, 0.5);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(0, 184, 148, 0.5); }
+    70% { box-shadow: 0 0 0 8px rgba(0, 184, 148, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 184, 148, 0); }
+  }
+
+  h1.page-title {
+    font-size: clamp(34px, 4.4vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    margin: 0 0 12px;
+    color: var(--ink);
+  }
+  h1.page-title .ital { font-style: italic; font-weight: 500; color: var(--ink-2); }
+
+  .lede {
+    font-size: 17px;
+    color: var(--ink-dim);
+    max-width: 540px;
+    margin: 0 0 32px;
+    line-height: 1.5;
+  }
+
+  .back-home {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; color: var(--ink-dim);
+    margin-bottom: 4px;
+    transition: color .15s;
+  }
+  .back-home:hover { color: var(--ink); }
+
+  /* ── Buttons (match index.html) ─────────────────── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 15px; font-weight: 500;
+    padding: 13px 22px; border-radius: 999px;
+    border: 1px solid transparent;
+    cursor: pointer; transition: all .18s ease;
+    font-family: inherit;
+  }
+  .btn.primary {
+    background: var(--ink); color: #fff;
+  }
+  .btn.primary:hover { background: #000; transform: translateY(-1px); }
+  .btn.ghost {
+    background: transparent; color: var(--ink);
+    border-color: var(--line);
+  }
+  .btn.ghost:hover { border-color: var(--ink); }
+  .btn .arrow { transition: transform .18s; }
+  .btn:hover .arrow { transform: translateX(3px); }
+
+  /* ── Page sections ─────────────────── */
+  .page {
+    padding: 32px 0 64px;
+  }
+  .form-shell, .matches-shell {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* state toggling */
+  body.view-a .matches-shell { display: none; }
+  body.view-b .form-shell { display: none; }
+
+  /* ── Form card ─────────────────── */
+  .form-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 1px 2px rgba(11, 18, 32, 0.04),
+                0 20px 60px -20px rgba(11, 18, 32, 0.08);
+  }
+
+  .req-form {
+    display: flex; flex-direction: column; gap: 22px;
+  }
+
+  .field-group {
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .field-group > label > span.lbl,
+  .field-group > .lbl {
+    display: block;
+    font-size: 11px; color: var(--ink-dim);
+    text-transform: uppercase; letter-spacing: 0.12em;
+    font-weight: 500;
+  }
+  .field-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  }
+  @media (max-width: 560px) {
+    .field-row { grid-template-columns: 1fr; }
+  }
+
+  .field-section {
+    border-top: 1px solid var(--line-2);
+    padding-top: 22px;
+  }
+  .field-section:first-of-type { border-top: none; padding-top: 0; }
+  .section-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--ink-mute);
+    text-transform: uppercase; letter-spacing: 0.15em;
+    margin-bottom: 14px;
+  }
+
+  .req-form input[type=text],
+  .req-form input[type=number],
+  .req-form input[type=date],
+  .req-form select {
+    font-family: inherit; font-size: 15px;
+    padding: 12px 14px; border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--bg); color: var(--ink);
+    width: 100%;
+    transition: border-color .15s, background .15s;
+  }
+  .req-form input:focus,
+  .req-form select:focus {
+    outline: none; border-color: var(--ink); background: #fff;
+  }
+  .req-form input::placeholder { color: var(--ink-mute); }
+
+  .req-form select {
+    appearance: none; -webkit-appearance: none; cursor: pointer;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1l5 5 5-5' stroke='%235b6477' stroke-width='1.5' stroke-linecap='round'/></svg>");
+    background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px;
+  }
+
+  /* radio pill group */
+  .radio-pills {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .radio-pills input[type=radio] {
+    position: absolute; opacity: 0; pointer-events: none;
+  }
+  .radio-pills label.pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 16px; border-radius: 999px;
+    background: #fff; border: 1px solid var(--line);
+    font-size: 14px; color: var(--ink-2); font-weight: 500;
+    cursor: pointer;
+    transition: border-color .15s, background .15s, color .15s;
+    user-select: none;
+  }
+  .radio-pills label.pill:hover { border-color: var(--ink-dim); }
+  .radio-pills input[type=radio]:checked + label.pill,
+  .radio-pills label.pill.checked {
+    background: var(--ink); color: #fff; border-color: var(--ink);
+  }
+  .radio-pills label.pill.disabled {
+    opacity: 0.5; cursor: not-allowed;
+    background: var(--bg); color: var(--ink-mute);
+  }
+  .radio-pills label.pill.disabled:hover { border-color: var(--line); }
+  .radio-pills .pill .soon-badge {
+    font-size: 10px; color: var(--accent);
+    background: var(--accent-soft);
+    padding: 3px 7px; border-radius: 999px;
+    font-weight: 600; letter-spacing: 0.05em;
+  }
+
+  .price-suffix {
+    position: relative;
+  }
+  .price-suffix::before {
+    content: '₹';
+    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+    color: var(--ink-mute); font-size: 15px; pointer-events: none;
+  }
+  .price-suffix input { padding-left: 36px; }
+
+  .req-form .submit-row {
+    margin-top: 6px;
+    display: flex; justify-content: flex-end;
+  }
+  .req-form button[type=submit] {
+    border: none;
+  }
+
+  .form-helper {
+    font-size: 12px; color: var(--ink-mute);
+    margin-top: -2px;
+  }
+
+  /* ── Matches view ─────────────────── */
+  .matches-head {
+    margin-bottom: 24px;
+  }
+  .matches-head .back-edit {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; color: var(--ink-dim);
+    margin-bottom: 18px;
+    cursor: pointer;
+    background: none; border: none; padding: 0;
+    font-family: inherit;
+    transition: color .15s;
+  }
+  .matches-head .back-edit:hover { color: var(--ink); }
+  .matches-head h2 {
+    font-size: clamp(28px, 3.4vw, 40px);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+  .matches-head h2 .ital { font-style: italic; font-weight: 500; color: var(--ink-2); }
+  .summary-line {
+    font-size: 15px; color: var(--ink-2);
+    margin: 0 0 6px;
+    display: inline-flex; align-items: center; gap: 8px;
+    flex-wrap: wrap;
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 10px 16px;
+    border-radius: 12px;
+  }
+  .summary-line .sep { color: var(--ink-mute); }
+  .summary-line .arrow-r { color: var(--accent); font-weight: 600; }
+  .matches-meta {
+    margin-top: 14px;
+    font-size: 13px; color: var(--ink-mute);
+    text-transform: uppercase; letter-spacing: 0.12em;
+    font-weight: 500;
+  }
+
+  #matches-container {
+    margin-top: 22px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  #matches-container:empty::after {
+    content: 'No reefers match your filters yet.\A Try widening the temperature range, pickup date, or price band.';
+    white-space: pre;
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--ink-dim);
+    background: #fff;
+    border: 1px dashed var(--line);
+    padding: 44px 32px;
+    border-radius: 16px;
+  }
+
+  /* ── Footer ─────────── */
+  footer {
+    padding: 28px 0 48px;
+    border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between;
+    color: var(--ink-mute); font-size: 13px;
+    flex-wrap: wrap; gap: 12px;
+  }
+</style>
+</head>
+<body class="view-a">
+  <div class="container">
+
+    <!-- ── Nav ────────────────── -->
+    <nav>
+      <a href="/" class="brand" aria-label="Cryologix home">
+        <div class="mark">C</div>
+        <div>Cryologix</div>
+      </a>
+      <div class="nav-links">
+        <a href="/#how">How it works</a>
+        <a href="/#platform">Platform</a>
+        <a href="/#roadmap">Roadmap</a>
+        <a href="/#blog">Blog</a>
+      </div>
+      <a href="/" class="nav-cta">← Home</a>
+    </nav>
+
+    <!-- ── Page ────────────────── -->
+    <main class="page">
+
+      <!-- View A: Requirement form -->
+      <section class="form-shell">
+        <a href="/" class="back-home">← Back to home</a>
+        <div class="eyebrow">
+          <span class="dot"></span>
+          New shipment
+        </div>
+        <h1 class="page-title">Post your <span class="ital">shipment.</span></h1>
+        <p class="lede">
+          Tell us your lane, temperature, and load. We match you with verified reefer fleets
+          ranked by fit, price, and cold-chain track record.
+        </p>
+
+        <div class="form-card">
+          <form id="reqForm" class="req-form" novalidate>
+
+            <!-- Lane -->
+            <div class="field-section">
+              <div class="section-eyebrow">01 / Lane</div>
+
+              <div class="field-row" style="margin-bottom:14px;">
+                <div class="field-group">
+                  <label>
+                    <span class="lbl">From · City</span>
+                    <input type="text" name="fromCity" id="fromCity" required placeholder="e.g. Mumbai" autocomplete="off" />
+                  </label>
+                </div>
+                <div class="field-group">
+                  <label>
+                    <span class="lbl">From · Pincode</span>
+                    <input type="text" name="fromPin" id="fromPin" required pattern="\d{6}" maxlength="6" inputmode="numeric" placeholder="6 digits" autocomplete="off" />
+                  </label>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field-group">
+                  <label>
+                    <span class="lbl">To · City</span>
+                    <input type="text" name="toCity" id="toCity" required placeholder="e.g. Chennai" autocomplete="off" />
+                  </label>
+                </div>
+                <div class="field-group">
+                  <label>
+                    <span class="lbl">To · Pincode</span>
+                    <input type="text" name="toPin" id="toPin" required pattern="\d{6}" maxlength="6" inputmode="numeric" placeholder="6 digits" autocomplete="off" />
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cargo -->
+            <div class="field-section">
+              <div class="section-eyebrow">02 / Cargo</div>
+
+              <div class="field-group" style="margin-bottom:18px;">
+                <span class="lbl">Temperature range</span>
+                <div class="radio-pills" id="tempRangeGroup" role="radiogroup" aria-label="Temperature range">
+                  <input type="radio" name="tempRange" id="temp1" value="2-8" required />
+                  <label for="temp1" class="pill">2 to 8°C</label>
+                  <input type="radio" name="tempRange" id="temp2" value="15-25" />
+                  <label for="temp2" class="pill">15 to 25°C</label>
+                  <input type="radio" name="tempRange" id="temp3" value="-15--25" />
+                  <label for="temp3" class="pill">−15 to −25°C</label>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field-group">
+                  <label>
+                    <span class="lbl">Product type</span>
+                    <select name="productType" id="productType" required>
+                      <option value="">Select…</option>
+                      <option value="Pharma">Pharma</option>
+                      <option value="F&amp;B">F&amp;B</option>
+                      <option value="Dairy">Dairy</option>
+                      <option value="Fresh">Fresh</option>
+                      <option value="Frozen">Frozen</option>
+                      <option value="Biologics">Biologics</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="field-group">
+                  <label>
+                    <span class="lbl">Load · kg</span>
+                    <input type="number" name="loadKg" id="loadKg" required min="1" step="1" placeholder="e.g. 12000" />
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Truck -->
+            <div class="field-section">
+              <div class="section-eyebrow">03 / Truck</div>
+
+              <div class="field-group">
+                <span class="lbl">Truck size</span>
+                <div class="radio-pills" id="truckSizeGroup" role="radiogroup" aria-label="Truck size">
+                  <input type="radio" name="truckSize" id="trk1" value="20ft" required />
+                  <label for="trk1" class="pill">20 ft</label>
+                  <input type="radio" name="truckSize" id="trk2" value="24ft" />
+                  <label for="trk2" class="pill">24 ft</label>
+                  <input type="radio" name="truckSize" id="trk3" value="32ft" />
+                  <label for="trk3" class="pill">32 ft</label>
+                  <label class="pill disabled" aria-disabled="true" title="LTL coming soon">
+                    LTL <span class="soon-badge">SOON</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Price + Date -->
+            <div class="field-section">
+              <div class="section-eyebrow">04 / Price &amp; pickup</div>
+
+              <div class="field-row" style="margin-bottom:14px;">
+                <div class="field-group">
+                  <label>
+                    <span class="lbl">Target price · min</span>
+                    <div class="price-suffix">
+                      <input type="number" name="minPrice" id="minPrice" required min="0" step="100" placeholder="40000" />
+                    </div>
+                  </label>
+                </div>
+                <div class="field-group">
+                  <label>
+                    <span class="lbl">Target price · max</span>
+                    <div class="price-suffix">
+                      <input type="number" name="maxPrice" id="maxPrice" required min="0" step="100" placeholder="55000" />
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label>
+                  <span class="lbl">Required pickup date</span>
+                  <input type="date" name="date" id="date" required />
+                </label>
+                <div class="form-helper">Earliest possible: today.</div>
+              </div>
+            </div>
+
+            <div class="submit-row">
+              <button type="submit" class="btn primary">
+                Find matches <span class="arrow">→</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- View B: Matches -->
+      <section class="matches-shell">
+        <div class="matches-head">
+          <button type="button" class="back-edit" id="backToForm">← Edit shipment</button>
+          <div class="eyebrow">
+            <span class="dot"></span>
+            Matches
+          </div>
+          <h2>Your <span class="ital">reefer matches.</span></h2>
+          <div id="summaryLine" class="summary-line mono"></div>
+          <div id="matchesMeta" class="matches-meta"></div>
+        </div>
+        <div id="matches-container"></div>
+      </section>
+
+    </main>
+
+    <!-- ── Footer ────────────── -->
+    <footer>
+      <span>© <span id="yr"></span> Cryologix</span>
+      <span class="mono">Cold chain · connected.</span>
+    </footer>
+
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="seed-data.js"></script>
+<script src="match.js"></script>
+<script src="match-cards.js"></script>
+<script>
+  // ── Page logic ──────────────────────────────────────────
+  (function () {
+    'use strict';
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    const STORAGE_KEY = 'cryologix.lastRequirement';
+    const form = document.getElementById('reqForm');
+    const dateInput = document.getElementById('date');
+    const minPriceInput = document.getElementById('minPrice');
+    const maxPriceInput = document.getElementById('maxPrice');
+    const summaryLine = document.getElementById('summaryLine');
+    const matchesMeta = document.getElementById('matchesMeta');
+    const matchesContainer = document.getElementById('matches-container');
+    const backToForm = document.getElementById('backToForm');
+
+    // ── Smart defaults ──
+    const SMART_DEFAULTS = {
+      fromCity: 'Mumbai',
+      fromPin: '400001',
+      toCity: 'Chennai',
+      toPin: '600001',
+      tempRange: '2-8',
+      productType: 'Pharma',
+      loadKg: 12000,
+      truckSize: '20ft',
+      minPrice: 40000,
+      maxPrice: 55000,
+      date: null // computed: today + 7
+    };
+
+    function isoDate(d) {
+      // local-date ISO (YYYY-MM-DD) avoiding TZ flips
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${y}-${m}-${day}`;
+    }
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todayIso = isoDate(today);
+    const plus7 = new Date(today);
+    plus7.setDate(plus7.getDate() + 7);
+    SMART_DEFAULTS.date = isoDate(plus7);
+
+    // date min on load
+    dateInput.min = todayIso;
+
+    // ── Pre-fill: localStorage > smart defaults ──
+    function loadSavedOrDefaults() {
+      let saved = null;
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) saved = JSON.parse(raw);
+      } catch (e) { saved = null; }
+      const data = Object.assign({}, SMART_DEFAULTS, saved || {});
+      // Date hygiene: never pre-fill a past date
+      if (!data.date || data.date < todayIso) data.date = SMART_DEFAULTS.date;
+
+      form.fromCity.value = data.fromCity ?? SMART_DEFAULTS.fromCity;
+      form.fromPin.value  = data.fromPin  ?? SMART_DEFAULTS.fromPin;
+      form.toCity.value   = data.toCity   ?? SMART_DEFAULTS.toCity;
+      form.toPin.value    = data.toPin    ?? SMART_DEFAULTS.toPin;
+
+      // radios: tempRange
+      const tempVal = data.tempRange ?? SMART_DEFAULTS.tempRange;
+      const tempInput = form.querySelector(`input[name="tempRange"][value="${cssEscape(tempVal)}"]`);
+      if (tempInput) tempInput.checked = true;
+
+      form.productType.value = data.productType ?? SMART_DEFAULTS.productType;
+      form.loadKg.value      = data.loadKg      ?? SMART_DEFAULTS.loadKg;
+
+      // radios: truckSize
+      const trkVal = data.truckSize ?? SMART_DEFAULTS.truckSize;
+      const trkInput = form.querySelector(`input[name="truckSize"][value="${cssEscape(trkVal)}"]`);
+      if (trkInput) trkInput.checked = true;
+
+      form.minPrice.value = data.minPrice ?? SMART_DEFAULTS.minPrice;
+      form.maxPrice.value = data.maxPrice ?? SMART_DEFAULTS.maxPrice;
+      form.date.value     = data.date     ?? SMART_DEFAULTS.date;
+    }
+
+    // CSS.escape polyfill-lite for attribute selectors (handles '-' fine, but be safe)
+    function cssEscape(s) {
+      if (window.CSS && CSS.escape) return CSS.escape(String(s));
+      return String(s).replace(/(["\\])/g, '\\$1');
+    }
+
+    loadSavedOrDefaults();
+
+    // ── Custom validation: minPrice <= maxPrice, date >= today ──
+    function clearCustom() {
+      minPriceInput.setCustomValidity('');
+      maxPriceInput.setCustomValidity('');
+      dateInput.setCustomValidity('');
+    }
+    minPriceInput.addEventListener('input', clearCustom);
+    maxPriceInput.addEventListener('input', clearCustom);
+    dateInput.addEventListener('input', clearCustom);
+
+    function runCustomValidation() {
+      clearCustom();
+      const minP = Number(minPriceInput.value);
+      const maxP = Number(maxPriceInput.value);
+      if (!Number.isNaN(minP) && !Number.isNaN(maxP) && minP > maxP) {
+        maxPriceInput.setCustomValidity('Max price must be at least the min price.');
+        return false;
+      }
+      if (dateInput.value && dateInput.value < todayIso) {
+        dateInput.setCustomValidity('Pickup date cannot be in the past.');
+        return false;
+      }
+      return true;
+    }
+
+    // ── Build formData object in EXACT shape required ──
+    function collectFormData() {
+      const tempRangeEl = form.querySelector('input[name="tempRange"]:checked');
+      const truckSizeEl = form.querySelector('input[name="truckSize"]:checked');
+      return {
+        fromCity:    form.fromCity.value.trim(),
+        fromPin:     form.fromPin.value.trim(),
+        toCity:      form.toCity.value.trim(),
+        toPin:       form.toPin.value.trim(),
+        tempRange:   tempRangeEl ? tempRangeEl.value : '',
+        productType: form.productType.value,
+        loadKg:      Number(form.loadKg.value),
+        truckSize:   truckSizeEl ? truckSizeEl.value : '',
+        minPrice:    Number(form.minPrice.value),
+        maxPrice:    Number(form.maxPrice.value),
+        date:        form.date.value
+      };
+    }
+
+    // ── Format helpers for summary line ──
+    const TEMP_LABEL = {
+      '2-8': '2–8°C',
+      '15-25': '15–25°C',
+      '-15--25': '−15 to −25°C'
+    };
+    function fmtKg(n) {
+      if (!n && n !== 0) return '';
+      return Number(n).toLocaleString('en-IN') + 'kg';
+    }
+    function fmtPickupDate(iso) {
+      if (!iso) return '';
+      const [y, m, d] = iso.split('-').map(Number);
+      const dt = new Date(y, m - 1, d);
+      const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      return `${months[dt.getMonth()]} ${dt.getDate()}`;
+    }
+
+    function renderSummary(data, matchesCount) {
+      const parts = [
+        `${data.fromCity} `,
+        `<span class="arrow-r">→</span>`,
+        ` ${data.toCity}`,
+        `<span class="sep"> · </span>`,
+        TEMP_LABEL[data.tempRange] || data.tempRange,
+        `<span class="sep"> · </span>`,
+        fmtKg(data.loadKg),
+        `<span class="sep"> · </span>`,
+        `pickup ${fmtPickupDate(data.date)}`
+      ];
+      summaryLine.innerHTML = parts.join('');
+      matchesMeta.textContent = `${matchesCount} reefer${matchesCount === 1 ? '' : 's'} ranked by match score`;
+    }
+
+    // ── View state ──
+    function showView(name) {
+      document.body.classList.remove('view-a', 'view-b');
+      document.body.classList.add(name === 'b' ? 'view-b' : 'view-a');
+      // scroll to top of view
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ── Submit ──
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      if (!runCustomValidation() || !form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const formData = collectFormData();
+
+      // Persist
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+      } catch (err) { /* localStorage may be disabled */ }
+
+      // Defensive checks for slices 2 & 3
+      if (typeof window.cryologixMatch !== 'function') {
+        alert('Matching engine not loaded — refresh.');
+        return;
+      }
+      if (typeof window.cryologixRenderCards !== 'function') {
+        alert('Match cards renderer not loaded — refresh.');
+        return;
+      }
+
+      // Loading state — brief flash so matching feels considered, not instant
+      const submitBtn = form.querySelector('button[type=submit]');
+      const originalSubmitHtml = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = 'Matching…';
+
+      setTimeout(function () {
+        let matches = [];
+        try {
+          matches = window.cryologixMatch(formData) || [];
+        } catch (err) {
+          console.error('[Cryologix] cryologixMatch threw:', err);
+          matches = [];
+        }
+
+        renderSummary(formData, matches.length);
+
+        // Clear container before render so the "empty" hint disappears as soon as we mount
+        matchesContainer.innerHTML = '';
+        try {
+          window.cryologixRenderCards(matches, matchesContainer);
+        } catch (err) {
+          console.error('[Cryologix] cryologixRenderCards threw:', err);
+        }
+
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalSubmitHtml;
+
+        showView('b');
+      }, 400);
+    });
+
+    // ── Back to edit ──
+    backToForm.addEventListener('click', function () {
+      // values already in form (we never reset on submit); but reload from storage
+      // in case user wants the canonical persisted state
+      loadSavedOrDefaults();
+      showView('a');
+    });
+
+  })();
+</script>
+</body>
+</html>

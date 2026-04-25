@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Eight empty pallets | Cryologix</title>
+<meta name="description" content="Why India's reefer trucks run half-full. Three case patterns of underutilised cold-chain capacity, what it costs shippers and fleets, and what a real-time matching layer changes." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f7f8;
+    --bg-soft: #eef2f3;
+    --ink: #0b1220;
+    --ink-2: #1c2432;
+    --muted: #5b6676;
+    --muted-2: #8a94a3;
+    --line: #e4e8eb;
+    --accent: #00c896;
+    --accent-soft: #d9f5ec;
+    --dark: #0b1220;
+    --radius: 18px;
+    --maxw: 1200px;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ----- Nav ----- */
+  .nav {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+  .logo-mark {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--dark);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 16px;
+    font-style: italic;
+  }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    font-size: 15px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    background: var(--dark);
+    color: #fff;
+    padding: 11px 22px;
+    border-radius: 999px;
+    font-size: 14.5px;
+    font-weight: 500;
+  }
+
+  /* ----- Article header ----- */
+  .article {
+    width: 80%;
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 64px 32px 96px;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    margin-bottom: 28px;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 7px; height: 7px; border-radius: 999px;
+    background: var(--accent);
+  }
+  h1 {
+    font-size: clamp(34px, 5vw, 54px);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    font-weight: 800;
+    margin: 0 0 28px;
+    color: var(--ink);
+  }
+  h1 em {
+    font-style: italic;
+    font-weight: 700;
+  }
+  .meta {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    color: var(--muted);
+    font-size: 14.5px;
+    margin-bottom: 48px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+  }
+  .meta-dot {
+    width: 3px; height: 3px; border-radius: 999px;
+    background: var(--muted-2);
+  }
+
+  /* ----- Body ----- */
+  .lede {
+    font-size: 21px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    font-weight: 400;
+    margin: 0 0 28px;
+    letter-spacing: -0.005em;
+  }
+  p {
+    margin: 0 0 22px;
+    color: var(--ink-2);
+  }
+  h2 {
+    font-size: clamp(24px, 3vw, 30px);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin: 56px 0 20px;
+    color: var(--ink);
+  }
+  h3 {
+    font-size: clamp(19px, 2.2vw, 22px);
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    font-weight: 700;
+    margin: 36px 0 12px;
+    color: var(--ink);
+  }
+  .standalone {
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 28px 0;
+  }
+
+  /* ----- Pull quote ----- */
+  .pullquote {
+    margin: 44px 0;
+    padding: 28px 32px;
+    background: var(--accent-soft);
+    border-radius: var(--radius);
+    font-size: 20px;
+    line-height: 1.45;
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    position: relative;
+  }
+  .pullquote::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 12px; bottom: 12px;
+    width: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  /* ----- Inline link ----- */
+  .body-link {
+    color: var(--ink);
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 1px;
+  }
+  .body-link:hover { color: var(--accent); }
+
+  /* ----- CTA block ----- */
+  .cta-block {
+    background: var(--dark);
+    color: #fff;
+    border-radius: 22px;
+    padding: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    margin: 56px 0 0;
+  }
+  .cta-block h3 {
+    font-size: clamp(24px, 3vw, 30px);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin: 0 0 10px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .cta-block h3 em {
+    color: var(--accent);
+    font-style: italic;
+    font-weight: 700;
+  }
+  .cta-block p {
+    margin: 0;
+    color: #aab3c0;
+    font-size: 15.5px;
+  }
+  .cta-button {
+    background: #fff;
+    color: var(--ink);
+    padding: 15px 26px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ----- Footer ----- */
+  .footer {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 36px 32px 48px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* ----- Responsive ----- */
+  @media (max-width: 720px) {
+    .nav { padding: 20px; }
+    .nav-links { display: none; }
+    .article { width: 92%; padding: 40px 16px 72px; }
+    .cta-block {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 32px 26px;
+    }
+    .pullquote { padding: 22px 24px; font-size: 18px; }
+    .lede { font-size: 19px; }
+    .footer { padding: 28px 22px 40px; flex-direction: column; gap: 12px; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="logo">
+    <span class="logo-mark">c</span>
+    <span>Cryologix</span>
+  </a>
+  <div class="nav-links">
+    <a href="/#how">How it works</a>
+    <a href="/#platform">Platform</a>
+    <a href="/#roadmap">Roadmap</a>
+    <a href="/#blog">Blog</a>
+  </div>
+  <a href="/#access" class="nav-cta">Request access</a>
+</nav>
+
+<article class="article">
+
+  <span class="eyebrow">Case study · Industry</span>
+
+  <h1>Eight empty pallets: why India's reefer trucks run <em>half-full,</em> and everyone pays for it.</h1>
+
+  <div class="meta">
+    <span>Cryologix team</span>
+    <span class="meta-dot"></span>
+    <span>April 2026</span>
+    <span class="meta-dot"></span>
+    <span>6 min read</span>
+  </div>
+
+  <p class="lede">On a Tuesday morning, somewhere on the Mumbai–Pune expressway, a 20-pallet reefer is heading east towards Pune with twelve pallets of biologics on board. Eight pallet positions inside are empty.</p>
+
+  <p>Forty kilometres behind it, a second 20-pallet reefer is heading the other way, completely empty. It dropped a frozen-foods load in Pune two hours ago and is deadheading back. Neither driver knows the other exists. Neither fleet owner knows. Neither shipper knows.</p>
+
+  <p>The first truck moves at 60% utilisation. The second moves at zero. At the end of the day one shipper has paid for capacity they did not need, and another sits in Pune unable to find a reefer for tomorrow morning. This is one of the largest hidden costs in India's cold-chain freight. It is bigger, more chronic, and more fixable than excursions, which we wrote about <a href="blog-missing-94-minutes.html" class="body-link">last month</a>.</p>
+
+  <h2>Three patterns of waste</h2>
+
+  <h3>The empty backhaul</h3>
+  <p>A Pune-based fleet runs three reefers on the Pune–Bangalore lane. The forward leg is steady, with a contracted pharma client at around ₹46,000 a load. Seven out of ten times, the truck deadheads back. None of the fleet's three Bangalore brokers have real-time visibility into Bangalore–Pune cold loads on any given day. Each empty backhaul costs roughly ₹26,000 in diesel, driver, genset, and tolls. On three trucks at that rate, the fleet absorbs the better part of a crore every year, because there is no place to look.</p>
+
+  <h3>The half-empty forward trip</h3>
+  <p>A Hyderabad pharma company moves six pallets of biologics to Chennai. LTL cold-chain freight in India is not a real market for pharma. There is no qualified operator they trust to consolidate. So they book a full 20-pallet reefer and pay for fourteen empty positions. Two kilometres away, a smaller pharma player has eight pallets going to Chennai the same day, same 2–8°C window, same compliance class. Neither knows about the other. Both pay full freight. Roughly ₹38,000 of cost is paid for nothing on that lane that day.</p>
+
+  <h3>The mistimed match</h3>
+  <p>A dairy producer in Anand needs a reefer to Pune for tomorrow morning's market. A reefer operator from Surat finished offloading in Anand at 4 p.m. and was planning to deadhead overnight via Pune. Perfect timing, compatible temperature, available capacity. The match never happens, because the producer is calling brokers who do not see the Surat truck. The producer books a different reefer that arrives twelve hours later than it could have. The Surat truck deadheads. Two losses on one missed match.</p>
+
+  <div class="pullquote">
+    Eight empty pallets is not a number anyone tracks. Multiply it by every reefer on every lane in the country and it becomes one of the largest unbilled costs in Indian logistics.
+  </div>
+
+  <h2>Why this still exists</h2>
+
+  <p>The reason is not technology. It is coordination.</p>
+
+  <p>Discovery in Indian reefer freight is broker-mediated. Brokers know their own networks, not the market. Compatibility metadata like temperature class, vehicle spec, and GDP or HACCP qualification lives in WhatsApp messages, not structured fields. Pricing is opaque, with fifty quotes per lane happening across the country every morning, none visible to each other. And backhaul is not a market; it is a relationship.</p>
+
+  <p>The cost is real. Average reefer utilisation in India sits between 55% and 65% on a tonne-kilometre basis, against a mature-market ceiling closer to 85%. For fleet owners, that is thirty to forty per cent below the revenue per kilometre an optimally matched fleet would earn. For shippers, it is overpayment on lanes where they could have shared a truck and unfindable capacity on lanes where there was a truck nearby they could not see.</p>
+
+  <p>A real-time channel between shippers and qualified operators changes each of these. Capacity becomes visible. Matching becomes structured. Pricing becomes transparent. Backhaul becomes a default search rather than an afterthought.</p>
+
+  <h2>Where this is going</h2>
+
+  <p>The fleet owner with the empty backhaul, the shipper paying for fourteen empty pallets, the dairy producer who missed the Surat truck. All of them are paying a coordination tax that has been baked into the price of cold freight for so long that nobody flinches at it any more.</p>
+
+  <p>That tax does not survive a working marketplace. The first lanes where it goes away are the highest-volume corridors: Pune–Bangalore, Hyderabad–Bangalore, Mumbai–Chennai, Delhi–Mumbai. Once a corridor has both shippers and operators publishing in real time, empty backhaul rates drop by a third within months.</p>
+
+  <p>The truck on the expressway this Tuesday morning is still half empty. So is the one behind it.</p>
+
+  <p class="standalone">The next Tuesday could be different.</p>
+
+  <div class="cta-block">
+    <div>
+      <h3>Ship cold, <em>with certainty.</em></h3>
+      <p>Join the early access list. We'll reach out as lanes open.</p>
+    </div>
+    <a href="/#access" class="cta-button">Request early access →</a>
+  </div>
+
+</article>
+
+<footer class="footer">
+  <span>© 2026 Cryologix</span>
+  <span>Cold chain, connected.</span>
+</footer>
+
+</body>
+</html>

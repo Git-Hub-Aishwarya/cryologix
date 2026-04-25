@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The missing 94 minutes | Cryologix</title>
+<meta name="description" content="A case study on a ₹3.2 crore biologics shipment lost to a single cold-chain excursion, and the four systemic gaps in India's reefer freight that made it inevitable." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f7f8;
+    --bg-soft: #eef2f3;
+    --ink: #0b1220;
+    --ink-2: #1c2432;
+    --muted: #5b6676;
+    --muted-2: #8a94a3;
+    --line: #e4e8eb;
+    --accent: #00c896;
+    --accent-soft: #d9f5ec;
+    --dark: #0b1220;
+    --radius: 18px;
+    --maxw: 1200px;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ----- Nav ----- */
+  .nav {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+  .logo-mark {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--dark);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 16px;
+    font-style: italic;
+  }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    font-size: 15px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    background: var(--dark);
+    color: #fff;
+    padding: 11px 22px;
+    border-radius: 999px;
+    font-size: 14.5px;
+    font-weight: 500;
+  }
+
+  /* ----- Article header ----- */
+  .article {
+    width: 80%;
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 64px 32px 96px;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    margin-bottom: 28px;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 7px; height: 7px; border-radius: 999px;
+    background: var(--accent);
+  }
+  h1 {
+    font-size: clamp(34px, 5vw, 54px);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    font-weight: 800;
+    margin: 0 0 28px;
+    color: var(--ink);
+  }
+  h1 em {
+    font-style: italic;
+    font-weight: 700;
+  }
+  .meta {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    color: var(--muted);
+    font-size: 14.5px;
+    margin-bottom: 48px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+  }
+  .meta-dot {
+    width: 3px; height: 3px; border-radius: 999px;
+    background: var(--muted-2);
+  }
+
+  /* ----- Body ----- */
+  .lede {
+    font-size: 21px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    font-weight: 400;
+    margin: 0 0 28px;
+    letter-spacing: -0.005em;
+  }
+  p {
+    margin: 0 0 22px;
+    color: var(--ink-2);
+  }
+  h2 {
+    font-size: clamp(24px, 3vw, 30px);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin: 56px 0 20px;
+    color: var(--ink);
+  }
+  .standalone {
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 28px 0;
+  }
+
+  /* ----- Pull quote ----- */
+  .pullquote {
+    margin: 44px 0;
+    padding: 28px 32px;
+    background: var(--accent-soft);
+    border-radius: var(--radius);
+    font-size: 20px;
+    line-height: 1.45;
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    position: relative;
+  }
+  .pullquote::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 12px; bottom: 12px;
+    width: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  /* ----- Divider ----- */
+  .divider {
+    height: 1px;
+    background: var(--line);
+    margin: 56px 0;
+  }
+
+  /* ----- CTA block ----- */
+  .cta-block {
+    background: var(--dark);
+    color: #fff;
+    border-radius: 22px;
+    padding: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    margin: 56px 0 0;
+  }
+  .cta-block h3 {
+    font-size: clamp(24px, 3vw, 30px);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin: 0 0 10px;
+    font-weight: 700;
+  }
+  .cta-block h3 em {
+    color: var(--accent);
+    font-style: italic;
+    font-weight: 700;
+  }
+  .cta-block p {
+    margin: 0;
+    color: #aab3c0;
+    font-size: 15.5px;
+  }
+  .cta-button {
+    background: #fff;
+    color: var(--ink);
+    padding: 15px 26px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ----- Footer ----- */
+  .footer {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 36px 32px 48px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* ----- Responsive ----- */
+  @media (max-width: 720px) {
+    .nav { padding: 20px; }
+    .nav-links { display: none; }
+    .article { padding: 40px 22px 72px; }
+    .cta-block {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 32px 26px;
+    }
+    .pullquote { padding: 22px 24px; font-size: 18px; }
+    .lede { font-size: 19px; }
+    .footer { padding: 28px 22px 40px; flex-direction: column; gap: 12px; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="logo">
+    <span class="logo-mark">c</span>
+    <span>Cryologix</span>
+  </a>
+  <div class="nav-links">
+    <a href="/#how">How it works</a>
+    <a href="/#platform">Platform</a>
+    <a href="/#roadmap">Roadmap</a>
+    <a href="/#blog">Blog</a>
+  </div>
+  <a href="/#access" class="nav-cta">Request access</a>
+</nav>
+
+<article class="article">
+
+  <span class="eyebrow">Case study · Industry</span>
+
+  <h1>The missing 94 minutes: what one excursion revealed about India's <em>reefer gap.</em></h1>
+
+  <div class="meta">
+    <span>Cryologix team</span>
+    <span class="meta-dot"></span>
+    <span>April 2026</span>
+    <span class="meta-dot"></span>
+    <span>6 min read</span>
+  </div>
+
+  <p class="lede">Last October, a Mumbai-based biologics manufacturer (one of the mid-tier exporters you'd recognise if I named them) had a batch of vaccines rejected before it ever reached its customer.</p>
+
+  <p>The shipment was worth roughly ₹3.2 crore, Mumbai to a distribution partner in Chennai, GDP-compliant lane, contracted with a reefer fleet the shipper had used for eighteen months without incident. The batch arrived on time. The seal was intact. The reefer display read 4.1°C, comfortably inside the 2–8°C window.</p>
+
+  <p class="standalone">Then QA pulled the continuous temperature log.</p>
+
+  <p>For 94 minutes somewhere near Hosur, around 2 a.m., the trailer had drifted to 11.3°C. The temperature came back down before morning. Nobody on the road saw anything wrong. The driver reported a clean run. But the data was clear, and the batch was gone.</p>
+
+  <p>This is not a dramatic story. Excursions like this happen every week in India's pharma cold chain. What makes it worth writing about is what happened next, and what it says about how temperature-controlled freight actually gets moved in this country.</p>
+
+  <h2>What actually went wrong</h2>
+
+  <p>The truck didn't break down. The reefer unit was working. The driver, interviewed afterwards, told his fleet manager that around 2 a.m. he had pulled into a roadside dhaba for a forty-minute break, and because the reefer's diesel genset was loud enough to keep him from sleeping, he had turned it off. He had done this on most of his runs. This time, an independent IoT logger, installed by the shipper two months earlier, caught it.</p>
+
+  <p>Here is the uncomfortable part: the driver had never been told this was a problem. His fleet had onboarded him with a day of paperwork and a pre-trip checklist. Nobody had walked him through why a vaccine at 11°C for an hour and a half is a destroyed vaccine. Nobody had told him that the genset stays on. Nobody had ever audited his runs.</p>
+
+  <p>The fleet owner, to his credit, wasn't evasive. He runs fourteen reefers. He has no cold-chain training programme because no customer has ever asked him for one. His drivers come and go. He competes on price against operators who run diesel-off for half the journey and save fuel. He knows this; he assumes his customers know it too; his rates reflect the market's actual tolerance for risk.</p>
+
+  <p>The shipper's QA team spent six weeks closing the deviation. The audit observation stayed on the file. Their next USFDA inspection is in eight months.</p>
+
+  <div class="pullquote">
+    Strip this story to its structure and there are four failures. None of them are about the truck.
+  </div>
+
+  <h2>The accountability gap</h2>
+
+  <p>The first is carrier qualification. Most Indian reefer fleets are not organised in any meaningful sense. They are owner-operators or small fleets of a dozen trucks, no SOPs, no published training, no pre-qualification against GDP or HACCP. A shipper engaging them is largely trusting reputation and rate. There is no industry-wide registry that says "this operator has never run diesel-off, this one has, this one has been flagged twice." Shippers rediscover carrier quality one excursion at a time.</p>
+
+  <p>The second is telemetry. The reefer unit has its own sensor. The fleet owns that data. On most lanes, the shipper receives a PDF at delivery, sometimes a printed roll from the onboard display. If a QA team wants continuous, independent, time-and-location-stamped data, they have to install their own logger, which many don't. The ones who do, like our Mumbai manufacturer, catch problems. The ones who don't, ship blind for years.</p>
+
+  <p>The third is audit readiness. When an inspector from CDSCO or USFDA asks for cold-chain documentation on a specific lot, what a pharma QA team can produce is wildly variable. Some shippers have pristine files. Many have screenshots, WhatsApp confirmations, and the printed roll. The regulatory bar is rising every year. The operational bar has not kept up.</p>
+
+  <p>The fourth, and the most structural, is pricing. The Indian reefer market prices almost entirely on rate per kilometre and transit time. Quality is unpriced. An operator who invests in genset discipline, driver training, independent telemetry, and documented chain of custody charges roughly the same as one who doesn't, because the buyer cannot tell them apart at the point of booking. Quality gets asked about after the first excursion. The market has no mechanism to reward it before one.</p>
+
+  <h2>What a serious fix looks like</h2>
+
+  <p>None of this is fixed by a better reefer unit or a shinier ERP. It is fixed by changing how the market works.</p>
+
+  <p>Carriers need real pre-qualification. Equipment specs and temperature ranges verified. Insurance and documentation checked. Training recorded. Not a one-time onboarding form but a living profile that accumulates a run history. A shipper should be able to see that this operator has moved 400 GDP lanes with zero excursions over two years. That is a different piece of information from "our fleet has ten years of experience."</p>
+
+  <p>Telemetry needs to be continuous, independent of the carrier, and visible to both sides in real time. The point is not to catch drivers; the point is that everyone sees the same numbers at the same time. Disputes get shorter. Incidents get faster. Training feedback becomes data, not anecdote. A fleet owner who can see his own excursion rate against the network median starts running his business differently within a quarter.</p>
+
+  <p>Audit records need to be exportable in formats regulators actually accept. Time-stamped, location-mapped, tamper-evident, tied to the specific shipment and the specific driver. A pharma QA team preparing for an inspection should be able to pull six months of lane data in an afternoon, not six weeks. This is not a moonshot; it is basic platform hygiene that the freight-broker model was never built to deliver.</p>
+
+  <p>And pricing has to reward quality. This is the piece the industry resists, because it requires the marketplace itself to do the work of surfacing carrier performance and letting it move rates. An operator with a clean excursion record on a pharma lane is worth more than one without. Until that premium shows up in the bid, nothing else changes. The good operators stay underpaid, the marginal ones stay in business, and the shippers keep paying for risk they cannot see.</p>
+
+  <h2>Where this is going</h2>
+
+  <p>India's cold-chain logistics market is roughly ₹1.9 lakh crore and growing. Pharma exports alone are pushing regulatory expectations upward every year. The current freight-broker model (a phone call, a rate, a truck) is running out of runway in this segment. It will not survive the next decade of scrutiny from USFDA, EMA, WHO-PQ, and CDSCO's own tightening frameworks.</p>
+
+  <p>What replaces it is not a new trucking company. It is an accountability layer. A place where carrier performance is visible, telemetry is shared, documentation is born digital, and quality is priced into the lane. Some of this is already being built, by us and by others. More will be built over the next two to three years, because the cost of not building it is paid one ₹3.2 crore excursion at a time.</p>
+
+  <p>The Mumbai manufacturer's batch is gone. The deviation is closed. The driver still drives. The fleet still runs. The lane still moves.</p>
+
+  <p class="standalone">The next shipment leaves tonight.</p>
+
+  <div class="cta-block">
+    <div>
+      <h3>Ship cold, <em>with certainty.</em></h3>
+      <p>Join the early access list. We'll reach out as lanes open.</p>
+    </div>
+    <a href="/#access" class="cta-button">Request early access →</a>
+  </div>
+
+</article>
+
+<footer class="footer">
+  <span>© 2026 Cryologix</span>
+  <span>Cold chain, connected.</span>
+</footer>

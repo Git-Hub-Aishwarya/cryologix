@@ -1,0 +1,18 @@
+# Vercel
+.vercel/
+
+# Claude Code session data
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Backup files
+*.bak
+*~
+
+# Old prototypes (not part of the V0 build)
+poc.html
+poc-v1.html
