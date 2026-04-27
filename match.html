@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/nav.css">
 <style>
   :root {
     --bg: #f7f7f5;
@@ -20,6 +21,7 @@
     --line: #e7e8ec;
     --line-2: #eef0f3;
     --accent: #00b894;
+    --accent-dark: #00875a;
     --accent-2: #0a84ff;
     --accent-soft: #e8f7f3;
     --chip: #f1f2f5;
@@ -51,34 +53,7 @@
 
   .container { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
 
-  /* ── Nav (mirrors index.html) ─────────────────── */
-  nav {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 22px 0;
-  }
-  .brand {
-    display: flex; align-items: center; gap: 10px;
-    font-weight: 700; letter-spacing: -0.01em; font-size: 19px;
-  }
-  .mark {
-    width: 30px; height: 30px; border-radius: 8px;
-    background: var(--ink);
-    display: grid; place-items: center;
-    color: var(--accent);
-    font-weight: 800; font-size: 16px;
-  }
-  .nav-links {
-    display: flex; gap: 32px; font-size: 14px; color: var(--ink-dim);
-  }
-  .nav-links a:hover { color: var(--ink); }
-  .nav-cta {
-    font-size: 14px; font-weight: 500;
-    padding: 9px 16px; border-radius: 999px;
-    background: var(--ink); color: #fff;
-    transition: transform .12s ease, background .2s;
-  }
-  .nav-cta:hover { background: #000; transform: translateY(-1px); }
-  @media (max-width: 720px) { .nav-links { display: none; } }
+  /* Nav styles live in /nav.css (shared across all pages) */
 
   /* ── Eyebrow + headings ─────────────────── */
   .eyebrow {
@@ -145,8 +120,6 @@
     border-color: var(--line);
   }
   .btn.ghost:hover { border-color: var(--ink); }
-  .btn .arrow { transition: transform .18s; }
-  .btn:hover .arrow { transform: translateX(3px); }
 
   /* ── Page sections ─────────────────── */
   .page {
@@ -267,8 +240,10 @@
     content: '₹';
     position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
     color: var(--ink-mute); font-size: 15px; pointer-events: none;
+    font-weight: 500;
   }
-  .price-suffix input { padding-left: 36px; }
+  /* Higher specificity needed to beat .req-form input[type=number] */
+  .req-form .price-suffix input[type=number] { padding-left: 36px; }
 
   .req-form .submit-row {
     margin-top: 6px;
@@ -344,38 +319,40 @@
 
   /* ── Footer ─────────── */
   footer {
-    padding: 28px 0 48px;
+    padding: 18px 0 22px;
     border-top: 1px solid var(--line);
-    display: flex; justify-content: space-between;
+    display: flex; justify-content: center;
     color: var(--ink-mute); font-size: 13px;
     flex-wrap: wrap; gap: 12px;
+    letter-spacing: -0.005em;
   }
 </style>
 </head>
 <body class="view-a">
-  <div class="container">
 
-    <!-- ── Nav ────────────────── -->
-    <nav>
-      <a href="/" class="brand" aria-label="Cryologix home">
-        <div class="mark">C</div>
-        <div>Cryologix</div>
-      </a>
-      <div class="nav-links">
-        <a href="/#how">How it works</a>
-        <a href="/#platform">Platform</a>
-        <a href="/#roadmap">Roadmap</a>
-        <a href="/#blog">Blog</a>
-      </div>
-      <a href="/" class="nav-cta">← Home</a>
-    </nav>
+  <!-- ── Nav (shared, see /nav.css) ────────────────── -->
+  <nav class="cx-nav">
+    <a class="brand" href="/" aria-label="Cryologix home">
+      <div class="mark">C</div>
+      <div>Cryologix</div>
+    </a>
+    <div class="nav-links">
+      <a href="/#how">How it works</a>
+      <a href="/#platform">Platform</a>
+      <a href="/#blog">Blog</a>
+      <a href="/#roadmap">Roadmap</a>
+    </div>
+    <a href="/signup.html" class="nav-cta" data-cry-auth-cta>Sign up</a>
+  </nav>
+
+  <div class="container">
 
     <!-- ── Page ────────────────── -->
     <main class="page">
 
       <!-- View A: Requirement form -->
       <section class="form-shell">
-        <a href="/" class="back-home">← Back to home</a>
+        <a href="/" class="back-home">Back to home</a>
         <div class="eyebrow">
           <span class="dot"></span>
           New shipment
@@ -518,8 +495,7 @@
 
             <div class="submit-row">
               <button type="submit" class="btn primary">
-                Find matches <span class="arrow">→</span>
-              </button>
+                Find matches              </button>
             </div>
           </form>
         </div>
@@ -528,7 +504,7 @@
       <!-- View B: Matches -->
       <section class="matches-shell">
         <div class="matches-head">
-          <button type="button" class="back-edit" id="backToForm">← Edit shipment</button>
+          <button type="button" class="back-edit" id="backToForm">Edit shipment</button>
           <div class="eyebrow">
             <span class="dot"></span>
             Matches
@@ -545,11 +521,12 @@
     <!-- ── Footer ────────────── -->
     <footer>
       <span>© <span id="yr"></span> Cryologix</span>
-      <span class="mono">Cold chain · connected.</span>
     </footer>
 
   </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script src="seed-data.js"></script>
 <script src="match.js"></script>

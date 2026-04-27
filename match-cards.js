@@ -36,9 +36,9 @@
       +   'color:var(--ink, #0b1220);'
       + '}'
       + '.cx-card:hover{'
-      +   'border-color:var(--ink, #0b1220);'
+      +   'border-color:var(--accent-dark, #00875a);'
       +   'transform:translateY(-2px);'
-      +   'box-shadow:0 4px 8px rgba(11,18,32,0.06), 0 24px 48px -22px rgba(11,18,32,0.2);'
+      +   'box-shadow:0 4px 8px rgba(0, 135, 90, 0.10), 0 24px 48px -22px rgba(0, 135, 90, 0.28);'
       + '}'
 
       + '.cx-card-top{display:flex; align-items:center; gap:12px; margin-bottom:4px;}'
@@ -326,7 +326,7 @@
       +       '<span>Your bid (&#8377;)</span>'
       +       '<input type="number" name="askPrice" required min="1" step="1" placeholder="e.g. 52400" />'
       +     '</label>'
-      +     '<button type="submit">Send bid <span class="arrow">&rarr;</span></button>'
+      +     '<button type="submit">Send bid</button>'
       +   '</form>'
       +   '<div class="cx-success" hidden data-cx-success>'
       +     '<div class="check">&#10003;</div>'
@@ -390,6 +390,14 @@
     modalForm.hidden = false;
     modalSuccess.hidden = true;
     modalForm.reset();
+    // Pre-fill email + phone from the logged-in user, if there is one.
+    if (window.cryAuth && typeof window.cryAuth.get === 'function') {
+      var user = window.cryAuth.get();
+      if (user) {
+        if (user.email && modalForm.email) modalForm.email.value = user.email;
+        if (user.phone && modalForm.phone) modalForm.phone.value = user.phone;
+      }
+    }
     // Pre-fill ask price with the estimated price as a smart starting point.
     var askInput = modalForm.querySelector('[name="askPrice"]');
     if (askInput && typeof currentMatch.estimatedPrice === 'number') {
@@ -398,7 +406,7 @@
     var btn = modalForm.querySelector('button[type=submit]');
     if (btn) {
       btn.disabled = false;
-      btn.innerHTML = 'Send bid <span class="arrow">&rarr;</span>';
+      btn.innerHTML = 'Send bid';
     }
 
     // Show + lock scroll
@@ -581,7 +589,7 @@
       + (chipsHtml ? '<div class="cx-reasons">' + chipsHtml + '</div>' : '')
       + '<div class="cx-bottom">'
       +   '<div class="cx-price"><span class="lbl">Estimated</span>' + escHtml(fmtINR(match.estimatedPrice)) + '</div>'
-      +   '<button type="button" class="cx-bid-btn" data-cx-bid>Send bid <span class="arrow">&rarr;</span></button>'
+      +   '<button type="button" class="cx-bid-btn" data-cx-bid>Send bid</button>'
       + '</div>';
 
     var bidBtn = card.querySelector('[data-cx-bid]');

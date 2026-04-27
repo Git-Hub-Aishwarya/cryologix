@@ -3,12 +3,29 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Cryologix — Cold chain, connected.</title>
-<meta name="description" content="The marketplace for reefer freight. Contract lanes. Spot bids. Temperature guaranteed." />
+<title>Cryologix</title>
+<meta name="description" content="India's reefer freight, matched in seconds. Verified operators. Transparent bids. Audit-grade compliance for pharma, biotech, and F&B teams." />
+
+<!-- Open Graph (LinkedIn, Slack, Discord, Facebook) -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://cryologix.vercel.app/" />
+<meta property="og:title" content="Cryologix: Reefer Marketplace, Unlocked." />
+<meta property="og:description" content="India's reefer freight, matched in seconds. Verified operators. Transparent bids. Audit-grade compliance for pharma, biotech, and F&B teams." />
+<meta property="og:image" content="https://cryologix.vercel.app/og-image-v3.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="Cryologix" />
+
+<!-- Twitter / X large card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Cryologix: Reefer Marketplace, Unlocked." />
+<meta name="twitter:description" content="India's reefer freight, matched in seconds. Verified operators. Transparent bids. Audit-grade compliance for pharma, biotech, and F&B teams." />
+<meta name="twitter:image" content="https://cryologix.vercel.app/og-image-v3.png" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b1220'/%3E%3Ctext x='50' y='68' font-size='62' font-family='Inter,Arial' font-weight='700' text-anchor='middle' fill='%2300d3b0'%3EC%3C/text%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/nav.css">
 <style>
   :root {
     --bg: #f7f7f5;
@@ -20,6 +37,12 @@
     --line: #e7e8ec;
     --line-2: #eef0f3;
     --accent: #00b894;
+    /* Hover/highlight pattern across all card-like sections (way, why-card,
+       blog-card, side, chip, feature, demo-window, cx-card):
+       border-color: var(--accent-dark);
+       box-shadow: 0 12px 32px -16px rgba(0, 135, 90, 0.22);
+       Use this for any new card you add. */
+    --accent-dark: #00875a;
     --accent-2: #0a84ff;
     --accent-soft: #e8f7f3;
     --chip: #f1f2f5;
@@ -52,34 +75,7 @@
 
   .container { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
 
-  /* ── Nav ─────────────────── */
-  nav {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 22px 0;
-  }
-  .brand {
-    display: flex; align-items: center; gap: 10px;
-    font-weight: 700; letter-spacing: -0.01em; font-size: 19px;
-  }
-  .mark {
-    width: 30px; height: 30px; border-radius: 8px;
-    background: var(--ink);
-    display: grid; place-items: center;
-    color: var(--accent);
-    font-weight: 800; font-size: 16px;
-  }
-  .nav-links {
-    display: flex; gap: 32px; font-size: 14px; color: var(--ink-dim);
-  }
-  .nav-links a:hover { color: var(--ink); }
-  .nav-cta {
-    font-size: 14px; font-weight: 500;
-    padding: 9px 16px; border-radius: 999px;
-    background: var(--ink); color: #fff;
-    transition: transform .12s ease, background .2s;
-  }
-  .nav-cta:hover { background: #000; transform: translateY(-1px); }
-  @media (max-width: 720px) { .nav-links { display: none; } }
+  /* Nav styles live in /nav.css (shared across all pages) */
 
   /* ── Hero ─────────────────── */
   .hero {
@@ -114,9 +110,9 @@
   }
 
   h1 {
-    font-size: clamp(44px, 6.4vw, 84px);
-    line-height: 1.02;
-    letter-spacing: -0.035em;
+    font-size: clamp(32px, 4.4vw, 52px);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
     font-weight: 700;
     margin: 0 0 24px;
     color: var(--ink);
@@ -133,6 +129,12 @@
   }
 
   .cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .cta-prefix {
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-right: 2px;
+  }
   .btn {
     display: inline-flex; align-items: center; gap: 8px;
     font-size: 15px; font-weight: 500;
@@ -148,9 +150,14 @@
     background: transparent; color: var(--ink);
     border-color: var(--line);
   }
-  .btn.ghost:hover { border-color: var(--ink); }
-  .btn .arrow { transition: transform .18s; }
-  .btn:hover .arrow { transform: translateX(3px); }
+  .btn.ghost:hover {
+    border-color: var(--accent-dark);
+    color: var(--accent-dark);
+    box-shadow: 0 6px 16px -8px rgba(0, 135, 90, 0.28);
+  }
+  /* Hover affordances for clickable links */
+  .blog-card:hover .read { color: var(--accent); font-weight: 600; }
+  .way:hover .learn:not(.upcoming) { background: var(--accent); color: #fff; }
 
   /* ── Live shipment card ─────── */
   .card-wrap {
@@ -159,11 +166,11 @@
   }
   .shipment {
     background: #fff;
-    border: 1px solid var(--line);
+    border: 1.5px solid var(--accent-dark);
     border-radius: 20px;
     padding: 22px;
-    box-shadow: 0 1px 2px rgba(11, 18, 32, 0.04),
-                0 20px 60px -20px rgba(11, 18, 32, 0.15);
+    box-shadow: 0 1px 2px rgba(0, 135, 90, 0.10),
+                0 20px 60px -20px rgba(0, 135, 90, 0.24);
     position: relative;
   }
   .ship-head {
@@ -192,8 +199,11 @@
   }
   .truck {
     position: absolute; left: 55%; top: 50%; transform: translate(-50%, -50%);
-    background: #fff; padding: 0 6px; font-size: 13px;
+    background: #fff; padding: 0 6px;
+    display: inline-flex; align-items: center;
+    line-height: 0;
   }
+  .truck svg { display: block; }
   .metrics {
     display: grid; grid-template-columns: 1.3fr 1fr; gap: 14px;
     padding-top: 16px; border-top: 1px solid var(--line-2);
@@ -277,10 +287,10 @@
   }
 
   /* ── Sections ─────────────── */
-  section.block { padding: 52px 0; }
+  section.block { padding: 40px 0; }
   .s-head {
     display: flex; justify-content: space-between; align-items: end;
-    gap: 24px; margin-bottom: 28px;
+    gap: 24px; margin-bottom: 22px;
   }
   .s-kicker {
     font-size: 12px; color: var(--ink-mute);
@@ -297,8 +307,8 @@
   }
   .s-title .ital { font-style: italic; font-weight: 500; color: var(--ink-2); }
   @media (max-width: 720px) {
-    section.block { padding: 48px 0; }
-    .s-head { flex-direction: column; align-items: start; margin-bottom: 28px; }
+    section.block { padding: 36px 0; }
+    .s-head { flex-direction: column; align-items: start; margin-bottom: 22px; }
   }
 
   /* Two-way cards */
@@ -311,27 +321,108 @@
     border: 1px solid var(--line);
     border-radius: 20px;
     padding: 32px;
-    transition: border-color .2s, transform .2s;
+    display: flex; flex-direction: column;
+    min-height: 260px;
+    transition: border-color .2s, transform .2s, box-shadow .2s;
   }
-  .way:hover { border-color: var(--ink); transform: translateY(-2px); }
+  .way:hover {
+    border-color: var(--accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px -16px rgba(0, 135, 90, 0.28);
+  }
+  .way-top {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 18px;
+    gap: 10px;
+  }
   .way-num {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 12px; color: var(--ink-mute); margin-bottom: 20px;
+    font-size: 12px; color: var(--ink-mute);
+    margin: 0;
+  }
+  .way-status {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent);
+  }
+  .way-status.upcoming {
+    background: var(--bg);
+    color: var(--ink-mute);
+    border: 1px solid var(--line);
+  }
+  .way-status.live::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%; background: var(--accent);
+    box-shadow: 0 0 0 0 rgba(0, 184, 148, 0.5);
+    animation: pulse 2s infinite;
   }
   .way h3 {
     font-size: 26px; font-weight: 600;
     letter-spacing: -0.02em; margin: 0 0 10px;
   }
   .way p {
-    color: var(--ink-dim); margin: 0 0 20px;
+    color: var(--ink-dim); margin: 0 0 24px;
     font-size: 15px; max-width: 360px;
+    flex-grow: 1;
+  }
+  .way-flow {
+    display: flex; flex-direction: column;
+    gap: 14px;
+    margin: 0 0 24px;
+    flex-grow: 1;
+  }
+  .way-step {
+    display: flex; align-items: flex-start;
+    gap: 12px;
+    font-size: 14px; line-height: 1.5;
+    color: var(--ink-dim);
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 700;
+    display: grid; place-items: center;
+    margin-top: 1px;
+  }
+  .way-step strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .way-flow.upcoming .step-num {
+    background: var(--bg);
+    color: var(--ink-mute);
+    border: 1px solid var(--line);
+  }
+  .way-flow.upcoming .way-step strong {
+    color: var(--ink-2);
   }
   .way .learn {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 14px; font-weight: 500; color: var(--ink);
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 18px;
+    background: var(--accent-soft); color: var(--accent);
+    border-radius: 999px;
+    font-size: 13px; font-weight: 600;
+    align-self: flex-start;
+    transition: background .2s ease, color .2s ease, transform .15s ease;
   }
-  .way .learn .arrow { transition: transform .18s; }
-  .way:hover .learn .arrow { transform: translateX(3px); }
+  .way:not(:has(.learn.upcoming)):hover .learn {
+    background: var(--accent); color: #fff;
+    transform: translateY(-1px);
+  }
+  .way .learn.upcoming {
+    background: var(--bg);
+    color: var(--ink-mute);
+    border: 1px solid var(--line);
+  }
 
   /* Feature grid */
   .features {
@@ -347,6 +438,12 @@
     padding: 28px;
     border-right: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
+    transition: background .2s, box-shadow .2s;
+    position: relative;
+  }
+  .feature:hover {
+    box-shadow: inset 0 0 0 1.5px var(--accent-dark);
+    z-index: 1;
   }
   .feature:nth-child(4n) { border-right: none; }
   .feature:nth-last-child(-n+4) { border-bottom: none; }
@@ -380,6 +477,16 @@
     padding: 36px;
     position: relative;
     overflow: hidden;
+    transition: border-color .2s, box-shadow .2s, transform .2s;
+  }
+  .side:not(.dark):hover {
+    border-color: var(--accent-dark);
+    box-shadow: 0 12px 32px -16px rgba(0, 135, 90, 0.22);
+    transform: translateY(-2px);
+  }
+  .side.dark:hover {
+    box-shadow: 0 12px 32px -16px rgba(0, 184, 148, 0.45);
+    transform: translateY(-2px);
   }
   .side.dark {
     background: var(--ink);
@@ -398,7 +505,10 @@
   }
   .side p {
     font-size: 15px; color: var(--ink-dim);
-    margin: 0 0 22px; max-width: 340px;
+    margin: 0 0 22px;
+  }
+  @media (min-width: 721px) {
+    .side p { white-space: nowrap; }
   }
   .side.dark p { color: #b8bfcf; }
   .side ul {
@@ -434,7 +544,14 @@
     display: inline-flex; align-items: center; gap: 8px;
     transition: border-color .2s;
   }
-  .chip:hover { border-color: var(--ink); }
+  .chip {
+    transition: border-color .2s, box-shadow .2s, transform .12s;
+  }
+  .chip:hover {
+    border-color: var(--accent-dark);
+    box-shadow: 0 6px 16px -8px rgba(0, 135, 90, 0.24);
+    transform: translateY(-1px);
+  }
   .chip .soon {
     font-size: 10px; color: var(--accent);
     background: var(--accent-soft);
@@ -467,11 +584,15 @@
   }
   .cta-band > * { position: relative; z-index: 1; }
   .cta-band h3 {
-    font-size: clamp(28px, 3.6vw, 42px);
-    line-height: 1.1;
-    letter-spacing: -0.025em;
+    font-size: clamp(22px, 3vw, 34px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
     font-weight: 600;
     margin: 0 0 10px;
+    white-space: nowrap;
+  }
+  @media (max-width: 720px) {
+    .cta-band h3 { white-space: normal; }
   }
   .cta-band h3 .ital { font-style: italic; font-weight: 400; color: var(--accent); }
   .cta-band p { color: #b8bfcf; margin: 0; font-size: 16px; }
@@ -485,21 +606,53 @@
 
   /* ── Demo (animated mockup) ─── */
   .demo-caption {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px; font-weight: 500;
-    color: var(--ink-mute);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
     text-align: center;
-    margin: 40px 0 14px;
+    margin: 56px 0 22px;
+    font-family: inherit;
+    font-size: clamp(14px, 3.4vw, 22px);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    text-transform: none;
+    line-height: 1.3;
+    white-space: nowrap;
   }
-  .demo-frame { max-width: 640px; margin: 0 auto; }
+  @media (max-width: 360px) {
+    .demo-caption { white-space: normal; font-size: 13px; }
+  }
+  .demo-caption em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .demo-caption-kicker {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .demo-frame { max-width: 660px; margin: 0 auto; position: relative; }
   .demo-window {
     background: #fff;
     border: 1px solid var(--line);
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 1px 2px rgba(11,18,32,.04), 0 30px 60px -28px rgba(11,18,32,.18);
+    box-shadow:
+      0 1px 2px rgba(11,18,32,.04),
+      0 4px 16px -4px rgba(11,18,32,.08),
+      0 40px 80px -28px rgba(11,18,32,.28);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .demo-window:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-dark);
+    box-shadow:
+      0 1px 2px rgba(11,18,32,.04),
+      0 8px 24px -4px rgba(0, 135, 90, 0.18),
+      0 50px 100px -28px rgba(0, 135, 90, 0.35);
   }
   .demo-toolbar {
     background: #f3f4f7;
@@ -516,6 +669,65 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 12px; color: var(--ink-mute);
   }
+  .demo-progress {
+    position: relative;
+    height: 34px;
+    background: #fafbfc;
+    border-bottom: 1px solid var(--line-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .dp-step {
+    position: absolute;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink-2);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity .25s ease;
+  }
+  .dp-step-1 { animation: showStep1 12s infinite ease-in-out; }
+  .dp-step-2 { animation: showStep2 12s infinite ease-in-out; }
+  .dp-step-3 { animation: showStep3 12s infinite ease-in-out; }
+  .dp-step-4 { animation: showStep4 12s infinite ease-in-out; }
+  @keyframes showStep1 {
+    0%, 1%   { opacity: 0; }
+    3%, 22%  { opacity: 1; }
+    25%, 100%{ opacity: 0; }
+  }
+  @keyframes showStep2 {
+    0%, 25%  { opacity: 0; }
+    28%, 47% { opacity: 1; }
+    50%, 100%{ opacity: 0; }
+  }
+  @keyframes showStep3 {
+    0%, 50%  { opacity: 0; }
+    53%, 72% { opacity: 1; }
+    75%, 100%{ opacity: 0; }
+  }
+  @keyframes showStep4 {
+    0%, 75%  { opacity: 0; }
+    78%, 95% { opacity: 1; }
+    100%     { opacity: 0; }
+  }
+  .demo-progress::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background: var(--accent);
+    animation: progressBar 12s infinite linear;
+  }
+  @keyframes progressBar {
+    0%   { width: 0; }
+    100% { width: 100%; }
+  }
   .demo-stage {
     position: relative;
     height: 360px;
@@ -529,10 +741,10 @@
   }
 
   /* Scene cycle — 16s loop, 4s per scene */
-  .form-scene    { animation: showForm    16s infinite ease-in-out; }
-  .matches-scene { animation: showMatches 16s infinite ease-in-out; }
-  .modal-scene   { animation: showModal   16s infinite ease-in-out; }
-  .success-scene { animation: showSuccess 16s infinite ease-in-out; }
+  .form-scene    { animation: showForm    12s infinite ease-in-out; }
+  .matches-scene { animation: showMatches 12s infinite ease-in-out; }
+  .modal-scene   { animation: showModal   12s infinite ease-in-out; }
+  .success-scene { animation: showSuccess 12s infinite ease-in-out; }
 
   @keyframes showForm {
     0%, 1%   { opacity: 0; transform: translateY(8px); }
@@ -580,7 +792,7 @@
     font-size: 14px; font-weight: 500;
     margin-top: 6px; align-self: flex-end;
     cursor: default;
-    animation: btnPulse 16s infinite ease-in-out;
+    animation: btnPulse 12s infinite ease-in-out;
   }
   @keyframes btnPulse {
     0%, 18%  { box-shadow: 0 0 0 0 rgba(0,184,148,0); transform: scale(1); }
@@ -632,12 +844,16 @@
   .dc-chips .cx-chip.badge { background:var(--accent-soft); color:var(--accent); }
 
   /* Modal scene */
-  .modal-scene { display: grid; place-items: center; }
+  .modal-scene {
+    display: grid;
+    place-items: start center;
+    padding-top: 6px;
+  }
   .demo-modal {
     background: #fff;
     border: 1px solid var(--line);
     border-radius: 16px;
-    padding: 24px 26px;
+    padding: 18px 24px 20px;
     width: min(360px, 100%);
     box-shadow: 0 20px 50px -16px rgba(11,18,32,.2);
   }
@@ -677,7 +893,7 @@
     border-radius: 999px;
     font-size: 14px; font-weight: 500;
     cursor: default;
-    animation: btnPulse2 16s infinite ease-in-out;
+    animation: btnPulse2 12s infinite ease-in-out;
   }
   @keyframes btnPulse2 {
     0%, 68%  { box-shadow: 0 0 0 0 rgba(0,184,148,0); transform: scale(1); }
@@ -694,7 +910,7 @@
     font-size: 32px; font-weight: 700;
     display: grid; place-items: center;
     margin: 0 auto 16px;
-    animation: checkPop 16s infinite ease-out;
+    animation: checkPop 12s infinite ease-out;
   }
   @keyframes checkPop {
     0%, 75%  { transform: scale(0); }
@@ -770,8 +986,9 @@
     transition: border-color .2s ease, transform .2s ease;
   }
   .why-card:hover {
-    border-color: var(--ink);
+    border-color: var(--accent-dark);
     transform: translateY(-2px);
+    box-shadow: 0 12px 32px -16px rgba(0, 135, 90, 0.22);
   }
   .why-card .label {
     font-family: 'JetBrains Mono', monospace;
@@ -812,11 +1029,12 @@
 
   /* ── Footer ─────────────── */
   footer {
-    padding: 28px 0 48px;
+    padding: 18px 0 22px;
     border-top: 1px solid var(--line);
-    display: flex; justify-content: space-between;
+    display: flex; justify-content: center;
     color: var(--ink-mute); font-size: 13px;
     flex-wrap: wrap; gap: 12px;
+    letter-spacing: -0.005em;
   }
 
   /* ── Blog section ────────── */
@@ -836,9 +1054,9 @@
     text-decoration: none; color: inherit;
   }
   .blog-card:hover {
-    border-color: var(--ink);
+    border-color: var(--accent-dark);
     transform: translateY(-2px);
-    box-shadow: 0 24px 48px -24px rgba(11, 18, 32, 0.14);
+    box-shadow: 0 24px 48px -24px rgba(0, 135, 90, 0.25);
   }
   .blog-tag {
     display: inline-flex; align-items: center; gap: 8px;
@@ -961,41 +1179,43 @@
 </style>
 </head>
 <body>
-  <div class="container">
 
-    <!-- ── Nav ────────────────── -->
-    <nav>
-      <div class="brand">
-        <div class="mark">C</div>
-        <div>Cryologix</div>
-      </div>
-      <div class="nav-links">
-        <a href="#how">How it works</a>
-        <a href="#platform">Platform</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#blog">Blog</a>
-      </div>
-      <a href="#" data-access-trigger class="nav-cta">Request access</a>
-    </nav>
+  <!-- ── Nav (shared, see /nav.css) ────────────────── -->
+  <nav class="cx-nav">
+    <a class="brand" href="/">
+      <div class="mark">C</div>
+      <div>Cryologix</div>
+    </a>
+    <div class="nav-links">
+      <a href="/#how">How it works</a>
+      <a href="/#platform">Platform</a>
+      <a href="/#blog">Blog</a>
+      <a href="/#roadmap">Roadmap</a>
+    </div>
+    <a href="/signup.html" class="nav-cta" data-cry-auth-cta>Sign up</a>
+  </nav>
+
+  <div class="container">
 
     <!-- ── Hero ───────────────── -->
     <section class="hero">
       <div>
         <div class="eyebrow">
           <span class="dot"></span>
-          Reefer freight · Reimagined
+          Reefer marketplace · Unlocked
         </div>
         <h1>
-          Cold chain,<br>
-          <span class="ital">connected.</span>
+          Your Reefer Load<br>
+          <span class="ital">matched in 30s.</span>
         </h1>
         <p class="lede">
           The marketplace for reefer freight. Contract lanes. Spot bids.
           Temperature guaranteed – end to end.
         </p>
         <div class="cta-row">
-          <a href="/match.html" class="btn primary">Get matched in 30s <span class="arrow">→</span></a>
-          <a href="#how" class="btn ghost">How it works</a>
+          <span class="cta-prefix">Get</span>
+          <a href="/match.html" class="btn primary">Quote </a>
+          <a href="/signup.html" class="btn ghost">Onboarded </a>
         </div>
       </div>
 
@@ -1017,7 +1237,22 @@
               <div class="time mono">08:20 IST</div>
             </div>
             <div class="line-mid">
-              <span class="truck">🚛</span>
+              <span class="truck">
+                <svg viewBox="0 0 52 22" width="52" height="22" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <!-- Trailer (left, pulled by cab on right) -->
+                  <rect x="2" y="2" width="38" height="14" rx="2.5" fill="#0b1220"/>
+                  <!-- Cab body (right, hood points right toward Chennai) -->
+                  <path d="M50 9 L50 16 L40 16 L40 5 L43 5 Z" fill="#0b1220"/>
+                  <!-- Cab window on hood -->
+                  <rect x="44.5" y="6.5" width="3.5" height="2.5" rx="0.5" fill="#7dd3fc"/>
+                  <!-- Cryologix C on trailer -->
+                  <text x="21" y="12.5" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="9" fill="#00b894" text-anchor="middle">C</text>
+                  <!-- Wheels -->
+                  <circle cx="10" cy="18" r="2.4" fill="#0b1220"/>
+                  <circle cx="32" cy="18" r="2.4" fill="#0b1220"/>
+                  <circle cx="45" cy="18" r="2.4" fill="#0b1220"/>
+                </svg>
+              </span>
             </div>
             <div class="stop end">
               <div class="city">Chennai</div>
@@ -1086,26 +1321,77 @@
       <div class="s-head">
         <div>
           <div class="s-kicker">How it works</div>
-          <h2 class="s-title">Two ways to move <span class="ital">cold loads.</span></h2>
+          <h2 class="s-title">Two ways to move <span class="ital">reefer loads.</span></h2>
         </div>
       </div>
       <div class="ways">
         <a href="/match.html" class="way" style="text-decoration:none;">
-          <div class="way-num">01 / Spot</div>
-          <h3>Bid marketplace</h3>
-          <p>Post adhoc FTL or LTL loads. Qualified reefer operators bid. Transparent pricing, fast match.</p>
-          <span class="learn">Get matched in 30s <span class="arrow">→</span></span>
+          <div class="way-top">
+            <div class="way-num">01 / Spot</div>
+            <span class="way-status live">Live</span>
+          </div>
+          <h3>Bid Marketplace</h3>
+          <div class="way-flow">
+            <div class="way-step">
+              <span class="step-num">1</span>
+              <span><strong>Post a load.</strong> Lane, temperature, date, price.</span>
+            </div>
+            <div class="way-step">
+              <span class="step-num">2</span>
+              <span><strong>Engine ranks</strong> top 8 matches with reasons.</span>
+            </div>
+            <div class="way-step">
+              <span class="step-num">3</span>
+              <span><strong>Bid, accept, or counter</strong> in 24 hours.</span>
+            </div>
+            <div class="way-step">
+              <span class="step-num">+</span>
+              <span>Shippers can list openly. Any operator self-selects.</span>
+            </div>
+            <div class="way-step">
+              <span class="step-num">+</span>
+              <span>Fleets can post capacity. Surfaced to active shippers.</span>
+            </div>
+          </div>
+          <span class="learn">Quote in 30s</span>
         </a>
         <div class="way">
-          <div class="way-num">02 / Contract</div>
-          <h3>Lane contracts</h3>
-          <p>Lock steady volume on recurring routes. Predictable pricing for shippers, forward-booked revenue for fleets.</p>
-          <span class="learn" style="color:var(--ink-mute);">Upcoming...</span>
+          <div class="way-top">
+            <div class="way-num">02 / Contract</div>
+            <span class="way-status upcoming">Coming soon</span>
+          </div>
+          <h3>Lane Contracts</h3>
+          <div class="way-flow upcoming">
+            <div class="way-step">
+              <span class="step-num">1</span>
+              <span><strong>Define the lane.</strong> Volume, temperature, frequency, price.</span>
+            </div>
+            <div class="way-step">
+              <span class="step-num">2</span>
+              <span><strong>Engine matches</strong> by track record and excursion rate.</span>
+            </div>
+            <div class="way-step">
+              <span class="step-num">3</span>
+              <span><strong>Lock 3, 6, or 12-month contract.</strong> Pricing fixed.</span>
+            </div>
+            <div class="way-step">
+              <span class="step-num">+</span>
+              <span>Shippers can bundle lanes for volume discounts.</span>
+            </div>
+            <div class="way-step">
+              <span class="step-num">+</span>
+              <span>Fleets can co-onboard incumbent carriers.</span>
+            </div>
+          </div>
+          <span class="learn upcoming">On the roadmap</span>
         </div>
       </div>
 
       <!-- Animated demo of the bid marketplace flow -->
-      <p class="demo-caption">Bid marketplace, end to end &rarr;</p>
+      <p class="demo-caption">
+        <span class="demo-caption-kicker">Live demo</span>
+        Watch how the bid is done in <em>30s.</em>
+      </p>
       <div class="demo-frame">
         <div class="demo-window">
           <div class="demo-toolbar">
@@ -1113,6 +1399,12 @@
             <span class="t-dot y"></span>
             <span class="t-dot g"></span>
             <span class="demo-url">cryologix.vercel.app/match</span>
+          </div>
+          <div class="demo-progress">
+            <span class="dp-step dp-step-1">Step 1 / 4 &middot; Post your load</span>
+            <span class="dp-step dp-step-2">Step 2 / 4 &middot; Engine ranks matches</span>
+            <span class="dp-step dp-step-3">Step 3 / 4 &middot; Bid the operator</span>
+            <span class="dp-step dp-step-4">Step 4 / 4 &middot; Operator notified</span>
           </div>
           <div class="demo-stage">
             <!-- Scene 1: Form -->
@@ -1126,7 +1418,7 @@
                   <div class="df-field"><label>Temperature</label><div class="df-input">2&ndash;8&deg;C</div></div>
                   <div class="df-field"><label>Load (kg)</label><div class="df-input">12,000</div></div>
                 </div>
-                <button class="df-submit">Find matches &rarr;</button>
+                <button class="df-submit">Find matches</button>
               </div>
             </div>
 
@@ -1164,7 +1456,7 @@
                   <div class="dm-field"><label>Phone</label><div class="dm-input">+91 98XXX XXXXX</div></div>
                   <div class="dm-field"><label>Your bid (&#8377;)</label><div class="dm-input">62,000</div></div>
                 </div>
-                <button class="dm-submit">Send bid &rarr;</button>
+                <button class="dm-submit">Send bid</button>
               </div>
             </div>
 
@@ -1190,22 +1482,22 @@
       <div class="features">
         <div class="feature">
           <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00b894" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg></div>
-          <h4>Verified reefers</h4>
+          <h4>Verified Reefers</h4>
           <p>Equipment specs and temp range vetted on onboarding.</p>
         </div>
         <div class="feature">
           <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00b894" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div>
-          <h4>Qualified carriers</h4>
+          <h4>Qualified Carriers</h4>
           <p>Documentation, insurance, cold-chain standards checked.</p>
         </div>
         <div class="feature">
           <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00b894" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-          <h4>Live telemetry <span class="soon" style="font-size:9px; padding:2px 6px; margin-left:6px; vertical-align:middle;">SOON</span></h4>
+          <h4>Live Telemetry <span class="soon" style="font-size:9px; padding:2px 6px; margin-left:6px; vertical-align:middle;">SOON</span></h4>
           <p>Temp and location streamed to every shipment timeline.</p>
         </div>
         <div class="feature">
           <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00b894" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div>
-          <h4>Audit records <span class="soon" style="font-size:9px; padding:2px 6px; margin-left:6px; vertical-align:middle;">SOON</span></h4>
+          <h4>Audit Records <span class="soon" style="font-size:9px; padding:2px 6px; margin-left:6px; vertical-align:middle;">SOON</span></h4>
           <p>Exportable logs for QA, regulators, and claims.</p>
         </div>
       </div>
@@ -1216,13 +1508,13 @@
       <div class="s-head">
         <div>
           <div class="s-kicker">Two sides, one platform</div>
-          <h2 class="s-title">Built for <span class="ital">both ends</span> of the lane.</h2>
+          <h2 class="s-title">Capacity for <span class="ital">shippers.</span> Loads for <span class="ital">reefer fleets.</span></h2>
         </div>
       </div>
       <div class="sides">
         <div class="side">
           <div class="label">For shippers</div>
-          <h3>Pharma &amp; F&amp;B teams</h3>
+          <h3>Pharma &amp; F&amp;B Teams</h3>
           <p>Vaccines, biologics, fresh, frozen, dairy, packaged food.</p>
           <ul>
             <li>Committed capacity on key lanes</li>
@@ -1232,7 +1524,7 @@
         </div>
         <div class="side dark">
           <div class="label">For fleets</div>
-          <h3>Reefer operators</h3>
+          <h3>Reefer Operators</h3>
           <p>Single-truck owner-operators to multi-unit fleets.</p>
           <ul>
             <li>Steady contract volume</li>
@@ -1286,30 +1578,9 @@
           <div class="label">Insight</div>
           <h3>Built by <span class="dim">insiders.</span></h3>
           <p>
-            Currently handles cold-chain commercial enquiries for pharma, biotech, and CRO clients. Previously ran bid-pricing tech for non-reefer FTL contracts and spot lanes. Has seen the demand- and supply-side pain firsthand.
+            The founder currently manages reefer-truck commercial operations for pharma and F&amp;B shippers: quoting, contracting, and lane-level execution. Earlier, he led bid-pricing tech for non-reefer FTL/LTL and spot lanes. Demand-side and supply-side pain, firsthand.
           </p>
         </div>
-      </div>
-    </section>
-
-    <!-- ── Roadmap ─────────── -->
-    <section class="block" id="roadmap">
-      <div class="s-head">
-        <div>
-          <div class="s-kicker">Roadmap</div>
-          <h2 class="s-title">More, <span class="ital">shipping soon.</span></h2>
-        </div>
-      </div>
-      <div class="chips">
-        <span class="chip"><span class="soon">SOON</span> Live telemetry · IoT integration</span>
-        <span class="chip"><span class="soon">SOON</span> Audit records export · GDP / FSSAI / HACCP</span>
-        <span class="chip"><span class="soon">SOON</span> LTL freight pooling</span>
-        <span class="chip"><span class="soon">SOON</span> Carrier reputation scores</span>
-        <span class="chip"><span class="soon">SOON</span> SMS &amp; WhatsApp alerts</span>
-        <span class="chip"><span class="soon">SOON</span> Lane analytics</span>
-        <span class="chip"><span class="soon">SOON</span> Driver mobile app</span>
-        <span class="chip"><span class="soon">SOON</span> Instant carrier payouts</span>
-        <span class="chip"><span class="soon">SOON</span> Multi-modal cold chain</span>
       </div>
     </section>
 
@@ -1325,10 +1596,10 @@
         <a href="blog-missing-94-minutes.html" class="blog-card">
           <span class="blog-tag">Case study · Industry</span>
           <h3>The missing 94 minutes: what one excursion revealed about India's <em>reefer gap.</em></h3>
-          <p>A ₹3.2 crore biologics shipment lost to a single cold-chain excursion — and the four systemic gaps in India's reefer freight that made it inevitable.</p>
+          <p>A ₹3.2 crore biologics shipment lost to a single cold-chain excursion. The four systemic gaps in India's reefer freight that made it inevitable.</p>
           <div class="blog-meta">
             <span>April 2026 · 6 min read</span>
-            <span class="read">Read article <span class="arrow">→</span></span>
+            <span class="read">Read article </span>
           </div>
         </a>
         <a href="blog-eight-empty-pallets.html" class="blog-card">
@@ -1337,29 +1608,48 @@
           <p>Three case patterns of underutilised cold-chain capacity, what it costs shippers and fleets, and what a real-time matching layer changes.</p>
           <div class="blog-meta">
             <span>April 2026 · 6 min read</span>
-            <span class="read">Read article <span class="arrow">→</span></span>
+            <span class="read">Read article </span>
           </div>
         </a>
+      </div>
+    </section>
+
+    <!-- ── Roadmap ─────────── -->
+    <section class="block" id="roadmap">
+      <div class="s-head">
+        <div>
+          <div class="s-kicker">Roadmap</div>
+          <h2 class="s-title">More, <span class="ital">under production.</span></h2>
+        </div>
+      </div>
+      <div class="chips">
+        <span class="chip"><span class="soon">SOON</span> Live telemetry · IoT integration</span>
+        <span class="chip"><span class="soon">SOON</span> Audit records export · GDP / FSSAI / HACCP</span>
+        <span class="chip"><span class="soon">SOON</span> LTL freight pooling</span>
+        <span class="chip"><span class="soon">SOON</span> Carrier reputation scores</span>
+        <span class="chip"><span class="soon">SOON</span> SMS &amp; WhatsApp alerts</span>
+        <span class="chip"><span class="soon">SOON</span> Lane analytics</span>
+        <span class="chip"><span class="soon">SOON</span> Driver mobile app</span>
+        <span class="chip"><span class="soon">SOON</span> Instant carrier payouts</span>
+        <span class="chip"><span class="soon">SOON</span> Multi-modal cold chain</span>
       </div>
     </section>
 
     <!-- ── CTA band ──────────── -->
     <div class="cta-band" id="access">
       <div>
-        <h3>Ship cold, <span class="ital">with certainty.</span></h3>
+        <h3>Ship in Reefer, <span class="ital">with Assurance.</span></h3>
         <p>Join the early access list. We'll reach out as lanes open.</p>
       </div>
       <div style="text-align:right;">
-        <a href="#" data-access-trigger class="btn primary">
-          Request access <span class="arrow">→</span>
-        </a>
+        <a href="/signup.html" class="btn primary">
+          Sign up        </a>
       </div>
     </div>
 
     <!-- ── Footer ────────────── -->
     <footer>
       <span>© <span id="yr"></span> Cryologix</span>
-      <span class="mono">Cold chain · connected.</span>
     </footer>
 
   </div>
@@ -1395,7 +1685,7 @@
             <option>Other</option>
           </select>
         </label>
-        <button type="submit" class="btn primary">Submit <span class="arrow">&rarr;</span></button>
+        <button type="submit" class="btn primary">Submit</button>
       </form>
 
       <div class="form-success" hidden>
@@ -1406,6 +1696,8 @@
     </div>
   </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth.js"></script>
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
 
