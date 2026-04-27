@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cryologix — Join</title>
+<meta name="description" content="Join Cryologix as a shipper or reefer fleet operator. Two minutes to register." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b1220'/%3E%3Ctext x='50' y='68' font-size='62' font-family='Inter,Arial' font-weight='700' text-anchor='middle' fill='%2300d3b0'%3EC%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/nav.css">
+<style>
+  :root {
+    --bg: #f7f7f5;
+    --bg-2: #ffffff;
+    --ink: #0b1220;
+    --ink-2: #1a2238;
+    --ink-dim: #5b6477;
+    --ink-mute: #8b93a4;
+    --line: #e7e8ec;
+    --line-2: #eef0f3;
+    --accent: #00b894;
+    --accent-dark: #00875a;
+    --accent-soft: #e8f7f3;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: -1;
+    background:
+      radial-gradient(600px 400px at 85% -5%, rgba(10, 132, 255, 0.08), transparent 60%),
+      radial-gradient(500px 350px at -5% 30%, rgba(0, 184, 148, 0.07), transparent 60%);
+    pointer-events: none;
+  }
+
+  .container { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
+
+  /* Nav styles live in /nav.css (shared across all pages) */
+
+  /* Page */
+  .signup-page {
+    min-height: calc(100vh - 80px);
+    display: grid;
+    place-items: center;
+    padding: 32px 0 80px;
+  }
+  .signup-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 36px 38px;
+    width: min(460px, 100%);
+    box-shadow: 0 1px 2px rgba(11,18,32,.04), 0 24px 60px -28px rgba(11,18,32,.18);
+  }
+
+  .s-kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .signup-card h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0 0 6px;
+    line-height: 1.2;
+  }
+  .signup-card h1 .ital { font-style: italic; font-weight: 500; color: var(--ink-2); }
+  .signup-card .sub {
+    color: var(--ink-dim);
+    margin: 0 0 26px;
+    font-size: 15px;
+  }
+
+  /* Role tabs */
+  .role-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    background: var(--bg);
+    padding: 4px;
+    border-radius: 12px;
+    margin-bottom: 22px;
+    border: 1px solid var(--line);
+  }
+  .role-tab {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: var(--ink-dim);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background .15s, color .15s, box-shadow .15s;
+  }
+  .role-tab.active {
+    background: #fff;
+    color: var(--ink);
+    box-shadow: 0 1px 3px rgba(11,18,32,.08);
+  }
+  .role-tab:not(.active):hover { color: var(--ink-2); }
+
+  /* Form */
+  form { margin: 0; }
+  .form-row { margin-bottom: 14px; }
+  .form-row label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .form-row input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    background: var(--bg);
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    transition: border-color .15s, background .15s;
+  }
+  .form-row input:focus {
+    outline: none;
+    border-color: var(--ink);
+    background: #fff;
+  }
+
+  .submit-btn {
+    width: 100%;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    padding: 13px;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background .2s, transform .12s;
+    margin-top: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .submit-btn:hover { background: #000; transform: translateY(-1px); }
+  .submit-btn:disabled { opacity: 0.6; cursor: wait; }
+
+  .alt-link {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 14px;
+    color: var(--ink-dim);
+  }
+  .alt-link a {
+    color: var(--ink);
+    font-weight: 500;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+  }
+  .alt-link a:hover { border-color: var(--ink); }
+
+  /* Success */
+  .success-state {
+    text-align: center;
+    padding: 8px 0 4px;
+  }
+  .success-state .check {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 32px; font-weight: 700;
+    display: grid; place-items: center;
+    margin: 0 auto 18px;
+  }
+  .success-state h1 { margin-bottom: 6px; }
+  .success-state .sub { margin-bottom: 22px; }
+
+  /* Card transitions */
+  .signup-card[hidden] { display: none; }
+</style>
+</head>
+<body>
+
+  <!-- ── Nav (shared, see /nav.css) ────────────────── -->
+  <nav class="cx-nav">
+    <a class="brand" href="/">
+      <div class="mark">C</div>
+      <div>Cryologix</div>
+    </a>
+    <div class="nav-links">
+      <a href="/#how">How it works</a>
+      <a href="/#platform">Platform</a>
+      <a href="/#blog">Blog</a>
+      <a href="/#roadmap">Roadmap</a>
+    </div>
+    <a href="/signup.html" class="nav-cta" data-cry-auth-cta>Sign up</a>
+  </nav>
+
+  <div class="container">
+
+    <main class="signup-page">
+
+      <!-- ── Signup card ─────── -->
+      <div class="signup-card" id="signupCard">
+        <div class="s-kicker">Join Cryologix</div>
+        <h1>Welcome to <span class="ital">Cryologix.</span></h1>
+        <p class="sub">Pick a role, drop your details, you're in.</p>
+
+        <div class="role-tabs" role="tablist">
+          <button type="button" class="role-tab active" data-role="shipper" aria-selected="true">I'm a Shipper</button>
+          <button type="button" class="role-tab" data-role="truck" aria-selected="false">I'm a Truck Owner</button>
+        </div>
+
+        <form id="signupForm" novalidate>
+          <div class="form-row">
+            <label>Name</label>
+            <input type="text" name="name" required autocomplete="name" placeholder="Your full name" />
+          </div>
+          <div class="form-row">
+            <label>Email</label>
+            <input type="email" name="email" required autocomplete="email" placeholder="you@company.com" />
+          </div>
+          <div class="form-row">
+            <label>Phone</label>
+            <input type="tel" name="phone" required autocomplete="tel" placeholder="+91 98XXX XXXXX" />
+          </div>
+          <div class="form-row">
+            <label>Password</label>
+            <input type="password" name="password" required minlength="6" autocomplete="new-password" placeholder="Min 6 characters" />
+          </div>
+          <div class="form-row">
+            <label>Confirm password</label>
+            <input type="password" name="confirmPassword" required minlength="6" autocomplete="new-password" placeholder="Re-enter password" />
+          </div>
+          <button type="submit" class="submit-btn">
+            Create account          </button>
+        </form>
+
+        <p class="alt-link">Already registered? <a id="showLogin" href="#">Log in</a></p>
+      </div>
+
+      <!-- ── Login card ──────── -->
+      <div class="signup-card" id="loginCard" hidden>
+        <div class="s-kicker">Welcome back</div>
+        <h1>Log in to <span class="ital">Cryologix.</span></h1>
+        <p class="sub">Email and password — that's it.</p>
+
+        <form id="loginForm" novalidate>
+          <div class="form-row">
+            <label>Email</label>
+            <input type="email" name="email" required autocomplete="email" placeholder="you@company.com" />
+          </div>
+          <div class="form-row">
+            <label>Password</label>
+            <input type="password" name="password" required autocomplete="current-password" placeholder="Your password" />
+          </div>
+          <button type="submit" class="submit-btn">
+            Log in          </button>
+        </form>
+
+        <p class="alt-link">No account yet? <a id="showSignup" href="#">Sign up</a></p>
+      </div>
+
+      <!-- ── Success card ────── -->
+      <div class="signup-card" id="successCard" hidden>
+        <div class="success-state">
+          <div class="check">&#10003;</div>
+          <div class="s-kicker">You're in</div>
+          <h1>Welcome, <span class="ital" id="welcomeName">there</span>.</h1>
+          <p class="sub">You're registered as a <strong id="welcomeRole">shipper</strong>. Bid forms will pre-fill your details from now on.</p>
+          <a class="submit-btn" href="/" style="text-decoration:none;">
+            Continue to Cryologix          </a>
+          <p class="alt-link" style="margin-top: 14px;">
+            Or <a href="/match.html" style="border-bottom:1px solid var(--line);">post a shipment</a> directly.
+          </p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth.js"></script>
+<script>
+  (function () {
+    'use strict';
+
+    var FORM_ENDPOINT = 'https://formsubmit.co/ajax/raj.aishwarya.official@gmail.com';
+
+    var signupCard  = document.getElementById('signupCard');
+    var loginCard   = document.getElementById('loginCard');
+    var successCard = document.getElementById('successCard');
+    var signupForm  = document.getElementById('signupForm');
+    var loginForm   = document.getElementById('loginForm');
+    var welcomeName = document.getElementById('welcomeName');
+    var welcomeRole = document.getElementById('welcomeRole');
+
+    var roleTabs = document.querySelectorAll('.role-tab');
+    var currentRole = 'shipper';
+
+    // If already logged in, jump to homepage
+    var existing = window.cryAuth && window.cryAuth.get();
+    if (existing && existing.email) {
+      // Don't auto-redirect — show login card so user can switch accounts
+      // OR show a nudge. For now, switch to login by default if email is there.
+    }
+
+    // ── Role tab toggle ──
+    roleTabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        roleTabs.forEach(function (t) { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        currentRole = tab.getAttribute('data-role') || 'shipper';
+      });
+    });
+
+    // ── Signup ↔ Login switcher ──
+    document.getElementById('showLogin').addEventListener('click', function (e) {
+      e.preventDefault();
+      signupCard.hidden = true;
+      loginCard.hidden = false;
+    });
+    document.getElementById('showSignup').addEventListener('click', function (e) {
+      e.preventDefault();
+      loginCard.hidden = true;
+      signupCard.hidden = false;
+    });
+
+    // ── Signup submit ──
+    signupForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!signupForm.checkValidity()) { signupForm.reportValidity(); return; }
+
+      var password = signupForm.password.value;
+      var confirm = signupForm.confirmPassword.value;
+      if (password !== confirm) {
+        signupForm.confirmPassword.setCustomValidity('Passwords do not match.');
+        signupForm.reportValidity();
+        signupForm.confirmPassword.setCustomValidity('');
+        return;
+      }
+
+      var btn = signupForm.querySelector('button[type=submit]');
+      var originalHtml = btn.innerHTML;
+      btn.disabled = true;
+      btn.textContent = 'Creating account…';
+
+      window.cryAuth.signUp({
+        email: signupForm.email.value.trim(),
+        password: password,
+        name: signupForm.name.value.trim(),
+        phone: signupForm.phone.value.trim(),
+        role: currentRole
+      }).then(function (user) {
+        // Notify Raj's inbox via Formsubmit (fire-and-forget, password never leaves the browser)
+        var notifyPayload = {
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          role: user.role,
+          createdAt: user.createdAt,
+          _subject: 'New Cryologix signup: ' + user.name + ' (' + user.role + ')',
+          _template: 'table',
+          _captcha: 'false'
+        };
+        fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(notifyPayload)
+        }).catch(function (err) { console.error('[Cryologix] Signup notification error:', err); });
+
+        showSuccess(user);
+        btn.disabled = false;
+        btn.innerHTML = originalHtml;
+      }, function (err) {
+        btn.disabled = false;
+        btn.innerHTML = originalHtml;
+        console.error('[Cryologix] Signup error:', err);
+        var msg = (err && err.message) ? err.message : 'Could not create your account.';
+        if (/already registered|already exists|user already/i.test(msg)) {
+          alert('That email is already registered. Try logging in instead.');
+        } else {
+          alert(msg);
+        }
+      });
+    });
+
+    // ── Login submit ──
+    loginForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!loginForm.checkValidity()) { loginForm.reportValidity(); return; }
+
+      var email = loginForm.email.value.trim();
+      var password = loginForm.password.value;
+
+      var btn = loginForm.querySelector('button[type=submit]');
+      var originalHtml = btn.innerHTML;
+      btn.disabled = true;
+      btn.textContent = 'Logging in…';
+
+      window.cryAuth.signIn({ email: email, password: password }).then(function (user) {
+        btn.disabled = false;
+        btn.innerHTML = originalHtml;
+        showSuccess(user);
+      }, function (err) {
+        btn.disabled = false;
+        btn.innerHTML = originalHtml;
+        console.error('[Cryologix] Login error:', err);
+        loginForm.password.setCustomValidity('Wrong email or password.');
+        loginForm.reportValidity();
+        loginForm.password.setCustomValidity('');
+      });
+    });
+
+    function showSuccess(user) {
+      welcomeName.textContent = (user.name || 'there').split(/\s+/)[0];
+      welcomeRole.textContent = user.role === 'truck' ? 'truck owner' : 'shipper';
+
+      signupCard.hidden = true;
+      loginCard.hidden = true;
+      successCard.hidden = false;
+
+      // Update nav cta after registration
+      if (window.cryAuth) {
+        var navCta = document.querySelector('.nav-cta');
+        if (navCta) {
+          var first = (user.name || '').trim().split(/\s+/)[0];
+          navCta.textContent = first ? 'Hi, ' + first : 'Account';
+          navCta.setAttribute('href', '#');
+          navCta.setAttribute('data-cry-logout', 'true');
+        }
+      }
+    }
+  })();
+</script>
+</body>
+</html>

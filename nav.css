@@ -1,0 +1,130 @@
+/* ════════════════════════════════════════════════════════════════
+   Cryologix · Canonical nav stylesheet
+   Single source of truth for the top nav across every page.
+
+   USAGE (any page, including future ones):
+   1. In <head>:  <link rel="stylesheet" href="/nav.css">
+   2. As the FIRST element inside <body> (NOT inside .container):
+
+        <nav class="cx-nav">
+          <a class="brand" href="/">
+            <div class="mark">C</div>
+            <div>Cryologix</div>
+          </a>
+          <div class="nav-links">
+            <a href="/#how">How it works</a>
+            <a href="/#platform">Platform</a>
+            <a href="/#blog">Blog</a>
+            <a href="/#roadmap">Roadmap</a>
+          </div>
+          <a href="/signup.html" class="nav-cta" data-cry-auth-cta>Sign up</a>
+        </nav>
+
+   The nav spans the full viewport with a frosted-glass background and
+   keeps content centered to a 1240px max-content width via padding.
+   On viewports ≤720px it becomes a 2-row sticky bar.
+   ──────────────────────────────────────────────────────────────── */
+
+.cx-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px max(24px, calc((100vw - 1240px) / 2 + 24px));
+  background: rgba(247, 247, 245, 0.82);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.cx-nav .brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-size: 17px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.cx-nav .mark {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: #0b1220;
+  display: grid;
+  place-items: center;
+  color: #00b894;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.cx-nav .nav-links {
+  display: flex;
+  gap: 28px;
+  font-size: 13.5px;
+  color: #5a6478;
+}
+
+.cx-nav .nav-links a {
+  color: inherit;
+  text-decoration: none;
+  transition: color .15s ease;
+}
+
+.cx-nav .nav-links a:hover {
+  color: #0b1220;
+}
+
+.cx-nav .nav-cta {
+  font-size: 13.5px;
+  font-weight: 500;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: #0b1220;
+  color: #fff;
+  text-decoration: none;
+  transition: transform .12s ease, background .2s;
+}
+
+.cx-nav .nav-cta:hover {
+  background: #000;
+  transform: translateY(-1px);
+}
+
+/* Smooth scroll + offset so anchored sections clear the sticky nav */
+html {
+  scroll-behavior: smooth;
+}
+[id] {
+  scroll-margin-top: 72px;
+}
+
+/* ── Mobile (≤720px): 2-row sticky layout ─────────────────────── */
+@media (max-width: 720px) {
+  .cx-nav {
+    flex-wrap: wrap;
+    padding: 9px 18px 0;
+  }
+  .cx-nav .nav-links {
+    display: flex;
+    width: 100%;
+    order: 3;
+    gap: 22px;
+    padding: 8px 0;
+    margin-top: 8px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    white-space: nowrap;
+    font-size: 12.5px;
+  }
+  .cx-nav .nav-links::-webkit-scrollbar { display: none; }
+  .cx-nav .nav-links a { flex-shrink: 0; }
+  [id] { scroll-margin-top: 92px; }
+}
