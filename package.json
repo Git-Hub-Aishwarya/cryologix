@@ -1,0 +1,30 @@
+{
+  "name": "cryologix",
+  "version": "1.0.0",
+  "description": "India's reefer-freight marketplace for pharma & F&B cold chain.",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python3 -m http.server 8080",
+    "test": "echo \"No tests configured\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Git-Hub-Aishwarya/cryologix.git"
+  },
+  "keywords": [
+    "cold-chain",
+    "logistics",
+    "reefer",
+    "freight",
+    "marketplace"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Git-Hub-Aishwarya/cryologix/issues"
+  },
+  "homepage": "https://github.com/Git-Hub-Aishwarya/cryologix#readme",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}

@@ -4,6 +4,9 @@
 # Claude Code session data
 .claude/
 
+# Node modules
+node_modules/
+
 # OS
 .DS_Store
 Thumbs.db
